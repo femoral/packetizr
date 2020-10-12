@@ -1,0 +1,22 @@
+{
+  "name": "packetizr",
+  "version": "1.0.0",
+  "description": "A code generation and packet inspection tool based on contracts",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/femoral/packetizr.git"
+  },
+  "keywords": [
+    "packet"
+  ],
+  "author": "Felipe Morales",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/femoral/packetizr/issues"
+  },
+  "homepage": "https://github.com/femoral/packetizr#readme"
+}
