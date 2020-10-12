@@ -1,0 +1,8 @@
+object:
+  attribute: "attribute"
+  number: 1
+  array:
+    - "value"
+    - nestedObject:
+        attribute: "nestedAttribute"
+        number: 2
