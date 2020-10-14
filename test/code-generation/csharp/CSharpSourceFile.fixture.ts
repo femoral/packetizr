@@ -8,6 +8,8 @@ export class CSharpSourceFileFixture {
       this.buildPacket2Model(),
       this.buildPacket1Serializer(),
       this.buildPacket2Serializer(),
+      this.buildPacket1Deserializer(),
+      this.buildPacket2Deserializer(),
       this.buildSerializerInterface(),
     ];
   }
@@ -28,6 +30,20 @@ export class CSharpSourceFileFixture {
   }
 
   static buildPacket2Serializer(): SourceFile {
+    return {
+      name: "Packet2Serializer.cs",
+      content: "Packet2Serializer content",
+    };
+  }
+
+  static buildPacket1Deserializer(): SourceFile {
+    return {
+      name: "Packet1Serializer.cs",
+      content: "Packet1Serializer content",
+    };
+  }
+
+  static buildPacket2Deserializer(): SourceFile {
     return {
       name: "Packet2Serializer.cs",
       content: "Packet2Serializer content",

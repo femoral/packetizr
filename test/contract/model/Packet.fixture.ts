@@ -28,7 +28,7 @@ export class PacketFixture {
       new Field("Int16Field", FieldTypes.INT16),
       new Field("Int8Field", FieldTypes.INT8),
       new Field("VarcharField", FieldTypes.VARCHAR),
-      new Field("CharField", FieldTypes.CHAR, 4),
+      new Field("CharField", FieldTypes.CHAR, 10),
       new Field("Uint32Field", FieldTypes.UINT32),
       new Field("Uint16Field", FieldTypes.UINT16),
       new Field("Uint8Field", FieldTypes.UINT8),

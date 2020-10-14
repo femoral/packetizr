@@ -4,6 +4,7 @@ import { ModelGenerator } from "./ModelGenerator";
 import { BoilerplateGenerator } from "./BoilerplateGenerator";
 import { SerializerGenerator } from "./SerializerGenerator";
 import { TemplateContainer } from "./TemplateContainer";
+import { DeserializerGenerator } from "./DeserializerGenerator";
 
 export function generator(): CodeGenerator {
   let templateContainer = new TemplateContainer();
@@ -11,6 +12,7 @@ export function generator(): CodeGenerator {
   return new CSharpCodeGenerator(
     new BoilerplateGenerator(templateContainer),
     new ModelGenerator(templateContainer),
-    new SerializerGenerator(templateContainer)
+    new SerializerGenerator(templateContainer),
+    new DeserializerGenerator(templateContainer)
   );
 }

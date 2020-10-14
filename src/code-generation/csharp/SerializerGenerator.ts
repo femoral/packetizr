@@ -9,7 +9,7 @@ export class SerializerGenerator {
 
   compile(packet: Packet): SourceFile {
     return {
-      name: `${packet.name}PacketDeserializer.cs`,
+      name: `${packet.name}PacketSerializer.cs`,
       content: this._templateContainer.build<SerializerClass>("serializer", {
         modelType: packet.name,
         fields: packet.fields.map((field) => ({
