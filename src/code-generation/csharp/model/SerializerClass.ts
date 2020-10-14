@@ -1,4 +1,9 @@
 export interface SerializerClass {
   modelType: string;
-  fields: string[]
+  fields: {
+    name: string;
+    isNumeric: boolean;
+    isChar: boolean;
+    isVarchar: boolean;
+  }[];
 }
