@@ -1,7 +1,0 @@
-public class {{ model.className }} {
-    public const short Header = {{model.header}};
-
-    {{#each model.fields as |field|}}
-    public {{field.type}} {{field.name}} {get; set;}
-    {{/each}}
-}

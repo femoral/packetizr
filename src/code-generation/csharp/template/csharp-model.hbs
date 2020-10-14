@@ -1,0 +1,7 @@
+public class {{ className }} {
+    public const short Header = {{header}};
+
+    {{#each fields as |field|}}
+    public {{field.type}} {{field.name}} {get; set;}
+    {{/each}}
+}
