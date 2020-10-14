@@ -4,7 +4,10 @@
   "description": "A code generation and packet inspection tool based on contracts",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "gen": "ts-node src/index.ts gen",
+    "test": "jest",
+    "check": "jest --coverage",
+    "build": "rimraf dist && tsc"
   },
   "repository": {
     "type": "git",

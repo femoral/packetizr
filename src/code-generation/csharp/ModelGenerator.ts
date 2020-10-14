@@ -7,21 +7,19 @@ import { SourceFile } from "../SourceFile";
 
 export class ModelGenerator {
   private _template = handlebars.compile<ModelClass>(
-    fs.readFileSync(`${__dirname}/template/csharp-class.hbs`).toString()
+    fs.readFileSync(`${__dirname}/template/csharp-model.hbs`).toString()
   );
 
   compile(packet: Packet): SourceFile {
     return {
       name: `${packet.name}.cs`,
       content: this._template({
-        model: {
-          className: packet.name,
-          header: packet.header,
-          fields: packet.fields.map((field) => ({
-            type: this.getType(field),
-            name: field.name,
-          })),
-        },
+        className: packet.name,
+        header: packet.header,
+        fields: packet.fields.map((field) => ({
+          type: this.getType(field),
+          name: field.name,
+        })),
       }),
     };
   }
