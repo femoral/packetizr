@@ -1,4 +1,5 @@
 import { SourceFile } from "../../../src/code-generation/SourceFile";
+import * as fs from "fs";
 
 export class CSharpSourceFileFixture {
   static buildListOk(): SourceFile[] {
@@ -7,6 +8,8 @@ export class CSharpSourceFileFixture {
       this.buildPacket2Model(),
       this.buildPacket1Serializer(),
       this.buildPacket2Serializer(),
+      this.buildPacket1Deserializer(),
+      this.buildPacket2Deserializer(),
       this.buildSerializerInterface(),
     ];
   }
@@ -33,10 +36,39 @@ export class CSharpSourceFileFixture {
     };
   }
 
+  static buildPacket1Deserializer(): SourceFile {
+    return {
+      name: "Packet1Serializer.cs",
+      content: "Packet1Serializer content",
+    };
+  }
+
+  static buildPacket2Deserializer(): SourceFile {
+    return {
+      name: "Packet2Serializer.cs",
+      content: "Packet2Serializer content",
+    };
+  }
+
+  static buildBoilerplateFiles() {
+    return [this.buildSerializerInterface(), this.buildDeserializerInterface()];
+  }
+
   static buildSerializerInterface(): SourceFile {
     return {
-      name: "SerializerInterface.cs",
-      content: "SerializerInterface content",
+      name: "IPacketSerializer.cs",
+      content: fs
+        .readFileSync(`${__dirname}/fixture/IPacketSerializer.cs`)
+        .toString(),
+    };
+  }
+
+  private static buildDeserializerInterface() {
+    return {
+      name: "IPacketDeserializer.cs",
+      content: fs
+        .readFileSync(`${__dirname}/fixture/IPacketDeserializer.cs`)
+        .toString(),
     };
   }
 }

@@ -1,15 +1,19 @@
 import { SourceFile } from "../SourceFile";
-import * as handlebars from "handlebars";
-import * as fs from "fs";
+import { TemplateContainer } from "./TemplateContainer";
 
 export class BoilerplateGenerator {
-  private _template = handlebars.compile<void>(
-    fs
-      .readFileSync(`${__dirname}/template/csharp-serializer-interface.hbs`)
-      .toString()
-  );
+  constructor(private _templateContainer: TemplateContainer) {}
 
   compile(): SourceFile[] {
-    return [{ name: "IPacketSerializer.cs", content: this._template() }];
+    return [
+      {
+        name: "IPacketSerializer.cs",
+        content: this._templateContainer.build("serializer-interface"),
+      },
+      {
+        name: "IPacketDeserializer.cs",
+        content: this._templateContainer.build("deserializer-interface"),
+      },
+    ];
   }
 }

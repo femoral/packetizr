@@ -1,0 +1,3 @@
+var {{name}}Bytes = Encoding.ASCII.GetBytes(message.{{name}});
+w.Write((byte) {{name}}Bytes.Length);
+w.Write({{name}}Bytes);

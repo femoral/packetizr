@@ -1,19 +1,15 @@
 import { Packet } from "../../contract/model/Packet";
-import * as fs from "fs";
-import * as handlebars from "handlebars";
 import { Field, FieldTypes } from "../../contract/model/Field";
-import { ModelClass } from "./model/ModelClass";
 import { SourceFile } from "../SourceFile";
+import { TemplateContainer } from "./TemplateContainer";
 
 export class ModelGenerator {
-  private _template = handlebars.compile<ModelClass>(
-    fs.readFileSync(`${__dirname}/template/csharp-model.hbs`).toString()
-  );
+  constructor(private _templateContainer: TemplateContainer) {}
 
   compile(packet: Packet): SourceFile {
     return {
       name: `${packet.name}.cs`,
-      content: this._template({
+      content: this._templateContainer.build("model", {
         className: packet.name,
         header: packet.header,
         fields: packet.fields.map((field) => ({
