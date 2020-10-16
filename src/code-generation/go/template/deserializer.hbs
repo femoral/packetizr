@@ -1,0 +1,31 @@
+using System;
+using System.IO;
+using System.Text;
+
+public class {{modelType}}PacketDeserializer : IPacketDeserializer<{{modelType}}> {
+    public {{modelType}} Deserialize(byte[] buffer) {
+        var message = new {{modelType}}();
+
+        using (var m = new MemoryStream(buffer)) {
+            using (var r = new BinaryReader(m)) {
+        {{#each fields as |field|}}
+            {{#if field.isNumeric}}
+                {{> deserializer-numeric field}}
+            {{/if}}
+            {{#if field.isVarchar}}
+                {{> deserializer-varchar field}}
+            {{/if}}
+            {{#if field.isChar}}
+                {{> deserializer-char field}}
+            {{/if}}
+            {{#if field.isSingleByte}}
+                {{> deserializer-single-byte field}}
+            {{/if}}
+
+        {{/each}}
+            }
+        }
+
+        return message;
+    }
+}

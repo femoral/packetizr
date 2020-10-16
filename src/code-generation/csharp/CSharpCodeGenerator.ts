@@ -14,7 +14,7 @@ export class CSharpCodeGenerator implements CodeGenerator {
     private _deserializerGenerator: DeserializerGenerator
   ) {}
 
-  compile(contract: Contract): SourceFile[] {
+  generate(contract: Contract): SourceFile[] {
     return [
       ...contract.packets.map((packet) => this._modelGenerator.compile(packet)),
       ...contract.packets.map((packet) =>

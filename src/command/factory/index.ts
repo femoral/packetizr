@@ -1,7 +1,6 @@
 import { YamlContractReader } from "../../reader/YamlContractReader";
 import { GetContractUseCase } from "../../contract/GetContractUseCase";
 import { FileSystemSourceCodeWriter } from "../../writer/FileSystemSourceCodeWriter";
-import { generator } from "../../code-generation/csharp";
 import { GenerateContractCodeUseCase } from "../../contract/GenerateContractCodeUseCase";
 
 export function buildGetContractUseCase(contractFilePath: string) {
@@ -9,10 +8,13 @@ export function buildGetContractUseCase(contractFilePath: string) {
   return new GetContractUseCase(contractReader);
 }
 
-export function buildGenerateContractCodeUseCaseFactory(
-  outputDirectory: string
+export async function buildGenerateContractCodeUseCaseFactory(
+  outputDirectory: string,
+  language: string
 ) {
   const fileWriter = new FileSystemSourceCodeWriter(outputDirectory);
-  const codeGenerator = generator();
+  const codeGenerator = (
+    await import(`../../code-generation/${language}`)
+  ).generator();
   return new GenerateContractCodeUseCase(codeGenerator, fileWriter);
 }

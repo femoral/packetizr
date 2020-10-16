@@ -9,7 +9,7 @@ export class GenerateContractCodeUseCase {
   ) {}
 
   async execute(contract: Contract) {
-    let sourceFiles = this._codeGenerator.compile(contract);
+    let sourceFiles = this._codeGenerator.generate(contract);
     this._sourceCodeWriter.write(sourceFiles);
   }
 }
