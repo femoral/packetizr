@@ -1,0 +1,31 @@
+name: Pull-Request
+
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm build
+      - name: Prettier
+        run: npm run check
+      - name: Audit
+        run: npm audit --audit-level=moderate
+      - name: Test & Coverage
+        run: npm run coverage
+      - name: Analyze with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
