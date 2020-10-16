@@ -14,9 +14,10 @@ describe("buildGetContractUseCase is called with file path", () => {
 });
 
 describe("buildGetContractUseCase is called with file path", () => {
-  it("should return new GetContractUseCase instance", () => {
-    let generateContractCodeUseCase = buildGenerateContractCodeUseCaseFactory(
-      "outputDir"
+  it("should return new GetContractUseCase instance", async () => {
+    let generateContractCodeUseCase = await buildGenerateContractCodeUseCaseFactory(
+      "outputDir",
+      "go"
     );
 
     expect(generateContractCodeUseCase).toBeInstanceOf(
