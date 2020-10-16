@@ -4,10 +4,11 @@ import {
   buildGetContractUseCase,
 } from "./factory";
 
-export const execute = async ({ file, out }: GenerateArgs) => {
+export const execute = async ({ file, out, language }: GenerateArgs) => {
   let getContractUseCase = buildGetContractUseCase(file);
-  let generateContractCodeUseCase = buildGenerateContractCodeUseCaseFactory(
-    out
+  let generateContractCodeUseCase = await buildGenerateContractCodeUseCaseFactory(
+    out,
+    language
   );
 
   const contract = await getContractUseCase.execute();

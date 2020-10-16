@@ -11,7 +11,7 @@ import { DeserializerGenerator } from "../../../src/code-generation/csharp/Deser
 it("Should return an array of source files, when compile is called with contract", () => {
   let generator = setUp();
 
-  let sourceFiles = generator.compile(ContractFixture.buildOk());
+  let sourceFiles = generator.generate(ContractFixture.buildOk());
 
   expect(sourceFiles.sort()).toEqual(
     CSharpSourceFileFixture.buildListOk().sort()

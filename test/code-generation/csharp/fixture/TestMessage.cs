@@ -1,5 +1,5 @@
 public class TestMessage {
-    public const short Header = 1;
+    public const ushort Header = 1;
 
     public int Int32Field {get; set;}
     public float Float32Field {get; set;}

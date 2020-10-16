@@ -23,14 +23,14 @@ describe("execute is called with contract", () => {
     await getContractUseCase.execute(ContractFixture.buildOk());
 
     verify(
-      codeGeneratorMock.compile(deepEqual(ContractFixture.buildOk()))
+      codeGeneratorMock.generate(deepEqual(ContractFixture.buildOk()))
     ).once();
   });
 
   describe("code generator returned source files", () => {
     it("Should call sourceCodeWriter with source files", async () => {
       when(
-        codeGeneratorMock.compile(deepEqual(ContractFixture.buildOk()))
+        codeGeneratorMock.generate(deepEqual(ContractFixture.buildOk()))
       ).thenReturn(SourceFileFixture.buildListOk());
 
       await getContractUseCase.execute(ContractFixture.buildOk());
