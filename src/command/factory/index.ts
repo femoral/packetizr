@@ -15,4 +15,4 @@ export function buildGenerateContractCodeUseCaseFactory(
   const fileWriter = new FileSystemSourceCodeWriter(outputDirectory);
   const codeGenerator = generator();
   return new GenerateContractCodeUseCase(codeGenerator, fileWriter);
-} 
+}

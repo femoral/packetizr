@@ -13,7 +13,9 @@
   "scripts": {
     "gen": "ts-node src/index.ts gen",
     "test": "jest",
-    "check": "jest --coverage",
+    "check": "prettier --check src/**/*.ts",
+    "ci": "npm run check && npm run coverage",
+    "coverage": "jest --coverage",
     "build": "rimraf dist && tsc && npm run copy-assets",
     "copy-assets": "copyfiles -u 1 ./src/**/*.hbs dist"
   },
