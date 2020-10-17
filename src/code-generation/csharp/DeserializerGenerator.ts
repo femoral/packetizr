@@ -3,19 +3,20 @@ import { SourceFile } from "../SourceFile";
 import { TemplateContainer } from "./TemplateContainer";
 import { FieldTypes } from "../../contract/model/Field";
 import { DeserializerClass } from "./model/DeserializerClass";
+import { pascalCase } from "change-case";
 
 export class DeserializerGenerator {
   constructor(private _templateContainer: TemplateContainer) {}
 
   generate(packet: Packet): SourceFile {
     return {
-      name: `${packet.name}PacketDeserializer.cs`,
+      name: `${pascalCase(packet.name)}PacketDeserializer.cs`,
       content: this._templateContainer.build<DeserializerClass>(
         "deserializer",
         {
-          modelType: packet.name,
+          modelType: pascalCase(packet.name),
           fields: packet.fields.map((field) => ({
-            name: field.name,
+            name: pascalCase(field.name),
             length: field.length,
             isChar: field.type == FieldTypes.CHAR,
             isVarchar: field.type == FieldTypes.VARCHAR,

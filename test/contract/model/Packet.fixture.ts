@@ -21,7 +21,7 @@ export class PacketFixture {
     ]);
   }
 
-  static buildWithAllFields() {
+  static buildWithAllFieldsAndUpperCaseFirstCharacter() {
     return new Packet("TestMessage", 1, [
       new Field("Int32Field", FieldTypes.INT32),
       new Field("Float32Field", FieldTypes.FLOAT32),
@@ -32,6 +32,20 @@ export class PacketFixture {
       new Field("Uint32Field", FieldTypes.UINT32),
       new Field("Uint16Field", FieldTypes.UINT16),
       new Field("Uint8Field", FieldTypes.UINT8),
+    ]);
+  }
+
+  static buildWithAllFieldsAndLowerCaseFirstCharacter() {
+    return new Packet("testMessage", 1, [
+      new Field("int32Field", FieldTypes.INT32),
+      new Field("float32Field", FieldTypes.FLOAT32),
+      new Field("int16Field", FieldTypes.INT16),
+      new Field("int8Field", FieldTypes.INT8),
+      new Field("varcharField", FieldTypes.VARCHAR),
+      new Field("charField", FieldTypes.CHAR, 10),
+      new Field("uint32Field", FieldTypes.UINT32),
+      new Field("uint16Field", FieldTypes.UINT16),
+      new Field("uint8Field", FieldTypes.UINT8),
     ]);
   }
 }

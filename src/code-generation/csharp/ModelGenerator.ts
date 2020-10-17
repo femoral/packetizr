@@ -2,19 +2,20 @@ import { Packet } from "../../contract/model/Packet";
 import { Field, FieldTypes } from "../../contract/model/Field";
 import { SourceFile } from "../SourceFile";
 import { TemplateContainer } from "./TemplateContainer";
+import { pascalCase } from "change-case";
 
 export class ModelGenerator {
   constructor(private _templateContainer: TemplateContainer) {}
 
   generate(packet: Packet): SourceFile {
     return {
-      name: `${packet.name}.cs`,
+      name: `${pascalCase(packet.name)}.cs`,
       content: this._templateContainer.build("model", {
-        className: packet.name,
+        className: pascalCase(packet.name),
         header: packet.header,
         fields: packet.fields.map((field) => ({
           type: this.getType(field),
-          name: field.name,
+          name: pascalCase(field.name),
         })),
       }),
     };
