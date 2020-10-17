@@ -3,6 +3,7 @@ import { Field, FieldTypes } from "../../contract/model/Field";
 import { SourceFile } from "../SourceFile";
 import { TemplateContainer } from "./TemplateContainer";
 import * as changeCase from "change-case";
+import { pascalCase } from "change-case";
 
 export class ModelGenerator {
   constructor(private _templateContainer: TemplateContainer) {}
@@ -11,11 +12,11 @@ export class ModelGenerator {
     return {
       name: `${changeCase.snakeCase(packet.name).replace("_", "-")}.go`,
       content: this._templateContainer.build("model", {
-        className: packet.name,
+        className: pascalCase(packet.name),
         header: packet.header,
         fields: packet.fields.map((field) => ({
           type: this.getType(field),
-          name: field.name,
+          name: pascalCase(field.name),
         })),
       }),
     };

@@ -4,7 +4,7 @@ import { TemplateContainer } from "./TemplateContainer";
 export class BoilerplateGenerator {
   constructor(private _templateContainer: TemplateContainer) {}
 
-  compile(): SourceFile[] {
+  generate(): SourceFile[] {
     return [
       {
         name: "IPacketSerializer.cs",

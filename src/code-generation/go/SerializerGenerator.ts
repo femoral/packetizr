@@ -12,7 +12,7 @@ export class SerializerGenerator {
     return {
       name: `${snakeCase(packet.name).replace("_", "-")}.serializer.go`,
       content: this._templateContainer.build<SerializerClass>("serializer", {
-        modelType: packet.name,
+        modelType: pascalCase(packet.name),
         fields: packet.fields.map((field) => ({
           endianness: "LittleEndian",
           camelCaseName: camelCase(field.name),

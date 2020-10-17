@@ -1,1 +1,3 @@
-message.{{name}} = Encoding.ASCII.GetString(r.ReadBytes({{length}}));
+{{camelCaseName}}Bytes := make([]byte, {{length}})
+_ = binary.Read(buffer, binary.BigEndian, &{{camelCaseName}}Bytes)
+message.{{pascalCaseName}} = string({{camelCaseName}}Bytes)

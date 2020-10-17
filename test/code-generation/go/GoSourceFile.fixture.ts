@@ -8,6 +8,8 @@ export class GoSourceFileFixture {
       this.buildPacket2Model(),
       this.buildPacket1Serializer(),
       this.buildPacket2Serializer(),
+      this.buildPacket1Deserializer(),
+      this.buildPacket2Deserializer(),
     ];
   }
 

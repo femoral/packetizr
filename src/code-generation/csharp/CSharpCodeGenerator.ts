@@ -16,14 +16,16 @@ export class CSharpCodeGenerator implements CodeGenerator {
 
   generate(contract: Contract): SourceFile[] {
     return [
-      ...contract.packets.map((packet) => this._modelGenerator.compile(packet)),
+      ...contract.packets.map((packet) =>
+        this._modelGenerator.generate(packet)
+      ),
       ...contract.packets.map((packet) =>
         this._serializerGenerator.generate(packet)
       ),
       ...contract.packets.map((packet) =>
         this._deserializerGenerator.generate(packet)
       ),
-      ...this._boilerplateGenerator.compile(),
+      ...this._boilerplateGenerator.generate(),
     ];
   }
 }

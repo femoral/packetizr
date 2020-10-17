@@ -38,12 +38,12 @@ function setUp() {
 
 function setupModelMocks(modelGeneratorMock: ModelGenerator) {
   when(
-    modelGeneratorMock.compile(
+    modelGeneratorMock.generate(
       deepEqual(PacketFixture.buildPacketWithNumbersOnly())
     )
   ).thenReturn(CSharpSourceFileFixture.buildPacket1Model());
   when(
-    modelGeneratorMock.compile(
+    modelGeneratorMock.generate(
       deepEqual(PacketFixture.buildPacketWithStringsOnly())
     )
   ).thenReturn(CSharpSourceFileFixture.buildPacket2Model());
@@ -78,7 +78,7 @@ function setupDeserializerMocks(
 }
 
 function setupBoilerplateMocks(boilerplateGeneratorMock: BoilerplateGenerator) {
-  when(boilerplateGeneratorMock.compile()).thenReturn([
+  when(boilerplateGeneratorMock.generate()).thenReturn([
     CSharpSourceFileFixture.buildSerializerInterface(),
   ]);
 }

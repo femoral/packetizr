@@ -1,12 +1,12 @@
 import { GenerateArgs } from "./model/GenerateArgs";
 import {
-  buildGenerateContractCodeUseCaseFactory,
+  buildGenerateContractCodeUseCase,
   buildGetContractUseCase,
 } from "./factory";
 
 export const execute = async ({ file, out, language }: GenerateArgs) => {
   let getContractUseCase = buildGetContractUseCase(file);
-  let generateContractCodeUseCase = await buildGenerateContractCodeUseCaseFactory(
+  let generateContractCodeUseCase = await buildGenerateContractCodeUseCase(
     out,
     language
   );

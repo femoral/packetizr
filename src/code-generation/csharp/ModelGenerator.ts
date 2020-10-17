@@ -6,7 +6,7 @@ import { TemplateContainer } from "./TemplateContainer";
 export class ModelGenerator {
   constructor(private _templateContainer: TemplateContainer) {}
 
-  compile(packet: Packet): SourceFile {
+  generate(packet: Packet): SourceFile {
     return {
       name: `${packet.name}.cs`,
       content: this._templateContainer.build("model", {

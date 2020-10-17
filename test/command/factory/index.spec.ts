@@ -1,5 +1,5 @@
 import {
-  buildGenerateContractCodeUseCaseFactory,
+  buildGenerateContractCodeUseCase,
   buildGetContractUseCase,
 } from "../../../src/command/factory";
 import { GetContractUseCase } from "../../../src/contract/GetContractUseCase";
@@ -15,7 +15,7 @@ describe("buildGetContractUseCase is called with file path", () => {
 
 describe("buildGetContractUseCase is called with file path", () => {
   it("should return new GetContractUseCase instance", async () => {
-    let generateContractCodeUseCase = await buildGenerateContractCodeUseCaseFactory(
+    let generateContractCodeUseCase = await buildGenerateContractCodeUseCase(
       "outputDir",
       "go"
     );

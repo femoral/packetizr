@@ -3,7 +3,7 @@ import { PacketFixture } from "../../contract/model/Packet.fixture";
 import { SerializerGenerator } from "../../../src/code-generation/csharp/SerializerGenerator";
 import { TemplateContainerFixture } from "./TemplateContainer.fixture";
 
-describe("compile is called with packet", () => {
+describe("generate is called with packet", () => {
   it("should return SourceFile with serializer name and content", () => {
     let serializerGenerator = new SerializerGenerator(
       TemplateContainerFixture.getContainer()

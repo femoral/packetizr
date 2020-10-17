@@ -10,7 +10,7 @@ it("Should return SourceFile with class model containing packet fields, when cal
   let expectedFileContent = fs
     .readFileSync(`${__dirname}/fixture/TestMessage.cs`)
     .toString();
-  let file = modelGenerator.compile(PacketFixture.buildWithAllFields());
+  let file = modelGenerator.generate(PacketFixture.buildWithAllFields());
 
   expect(file.name).toEqual("TestMessage.cs");
   expect(file.content).toEqual(expectedFileContent);

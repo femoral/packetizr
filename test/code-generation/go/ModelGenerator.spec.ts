@@ -3,7 +3,7 @@ import { TemplateContainerFixture } from "../go/TemplateContainer.fixture";
 import * as fs from "fs";
 import { PacketFixture } from "../../contract/model/Packet.fixture";
 
-describe("compile is called with packet", () => {
+describe("generate is called with packet", () => {
   it("should return SourceFile with the model corresponding to the packet", () => {
     let modelGenerator = new ModelGenerator(
       TemplateContainerFixture.getContainer()

@@ -30,4 +30,4 @@ yargs
     description:
       "Output directory (where the generated source code will be written)",
     default: "./out",
-  });
+  }).argv;
