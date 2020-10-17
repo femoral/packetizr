@@ -18,10 +18,10 @@ export class CSharpCodeGenerator implements CodeGenerator {
     return [
       ...contract.packets.map((packet) => this._modelGenerator.compile(packet)),
       ...contract.packets.map((packet) =>
-        this._serializerGenerator.compile(packet)
+        this._serializerGenerator.generate(packet)
       ),
       ...contract.packets.map((packet) =>
-        this._deserializerGenerator.compile(packet)
+        this._deserializerGenerator.generate(packet)
       ),
       ...this._boilerplateGenerator.compile(),
     ];

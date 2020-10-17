@@ -12,7 +12,7 @@ describe("compile is called with packet", () => {
       .readFileSync(`${__dirname}/fixture/TestMessagePacketSerializer.cs`)
       .toString();
 
-    let file = serializerGenerator.compile(PacketFixture.buildWithAllFields());
+    let file = serializerGenerator.generate(PacketFixture.buildWithAllFields());
 
     expect(file.name).toEqual("TestMessagePacketSerializer.cs");
     expect(file.content).toEqual(expectedFileContent);

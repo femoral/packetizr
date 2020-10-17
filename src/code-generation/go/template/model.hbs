@@ -1,6 +1,6 @@
 package packets
 
-const {{ className }}Header = (uint16) {{header}}
+const {{ className }}Header = uint16({{header}})
 
 type {{ className }} struct {
 {{#each fields as |field|}}

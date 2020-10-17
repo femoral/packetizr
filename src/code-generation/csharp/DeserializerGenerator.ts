@@ -7,7 +7,7 @@ import { DeserializerClass } from "./model/DeserializerClass";
 export class DeserializerGenerator {
   constructor(private _templateContainer: TemplateContainer) {}
 
-  compile(packet: Packet): SourceFile {
+  generate(packet: Packet): SourceFile {
     return {
       name: `${packet.name}PacketDeserializer.cs`,
       content: this._templateContainer.build<DeserializerClass>(

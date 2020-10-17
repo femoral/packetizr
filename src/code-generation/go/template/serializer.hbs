@@ -1,24 +1,33 @@
-using System;
-using System.IO;
-using System.Text;
+package packets
 
-public class {{modelType}}PacketSerializer : IPacketSerializer<{{modelType}}> {
-    public byte[] Serialize({{modelType}} message) {
-        using (var m = new MemoryStream()) {
-            using (var w = new BinaryWriter(m)) {
-                w.Write(BitConverter.GetBytes({{modelType}}.Header));
-        {{#each fields as |field|~}}
-            {{~#if field.isNumeric}}
-                {{> serializer-numeric field}}
-            {{/if}}
-            {{~#if field.isVarchar}}
-                {{> serializer-varchar field}}
-            {{/if}}
-            {{~#if field.isChar}}
-                {{> serializer-char field}}{{/if}}
-        {{/each}}
-                return m.ToArray();
-            }
-        }
-    }
+import (
+    "bytes"
+    "encoding/binary"
+)
+
+type {{modelType}}Serializer struct {
+}
+
+func New{{modelType}}Serializer() *{{modelType}}Serializer {
+    return &{{modelType}}Serializer{}
+}
+
+func (r *{{modelType}}Serializer) Serialize(message *{{modelType}}) []byte {
+    var buffer bytes.Buffer
+
+    _ = binary.Write(&buffer, binary.LittleEndian, {{modelType}}Header)
+{{#each fields as |field|~}}
+{{~#if field.isNumeric}}
+    {{> serializer-numeric field}}
+{{/if}}
+{{~#if field.isVarchar}}
+    {{> serializer-varchar field}}
+{{/if}}
+{{~#if field.isChar}}
+    {{> serializer-char field}}
+{{/if}}
+
+{{/each}}
+
+    return buffer.Bytes()
 }

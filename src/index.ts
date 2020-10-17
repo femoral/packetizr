@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import * as yargs from "yargs";
-import {Arguments} from "yargs";
+import { Arguments } from "yargs";
 import * as generate from "./command/Generate";
-import {GenerateArgs} from "./command/model/GenerateArgs";
+import { GenerateArgs } from "./command/model/GenerateArgs";
 
 yargs
   .command(
@@ -30,4 +30,4 @@ yargs
     description:
       "Output directory (where the generated source code will be written)",
     default: "./out",
-  }).argv;
+  });

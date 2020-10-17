@@ -1,6 +1,6 @@
 package packets
 
-const TestMessageHeader = (uint16) 1
+const TestMessageHeader = uint16(1)
 
 type TestMessage struct {
     Int32Field int32

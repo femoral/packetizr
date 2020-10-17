@@ -17,4 +17,4 @@ export async function buildGenerateContractCodeUseCaseFactory(
     await import(`../../code-generation/${language}`)
   ).generator();
   return new GenerateContractCodeUseCase(codeGenerator, fileWriter);
-} 
+}

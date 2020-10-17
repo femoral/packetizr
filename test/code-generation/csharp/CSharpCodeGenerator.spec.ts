@@ -51,12 +51,12 @@ function setupModelMocks(modelGeneratorMock: ModelGenerator) {
 
 function setupSerializerMocks(serializerGeneratorMock: SerializerGenerator) {
   when(
-    serializerGeneratorMock.compile(
+    serializerGeneratorMock.generate(
       deepEqual(PacketFixture.buildPacketWithNumbersOnly())
     )
   ).thenReturn(CSharpSourceFileFixture.buildPacket1Serializer());
   when(
-    serializerGeneratorMock.compile(
+    serializerGeneratorMock.generate(
       deepEqual(PacketFixture.buildPacketWithStringsOnly())
     )
   ).thenReturn(CSharpSourceFileFixture.buildPacket2Serializer());
@@ -66,12 +66,12 @@ function setupDeserializerMocks(
   deserializerGeneratorMock: DeserializerGenerator
 ) {
   when(
-    deserializerGeneratorMock.compile(
+    deserializerGeneratorMock.generate(
       deepEqual(PacketFixture.buildPacketWithNumbersOnly())
     )
   ).thenReturn(CSharpSourceFileFixture.buildPacket1Deserializer());
   when(
-    deserializerGeneratorMock.compile(
+    deserializerGeneratorMock.generate(
       deepEqual(PacketFixture.buildPacketWithStringsOnly())
     )
   ).thenReturn(CSharpSourceFileFixture.buildPacket2Deserializer());
