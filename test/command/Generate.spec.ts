@@ -10,8 +10,7 @@ let generateContractCodeUseCaseMock = {
 
 jest.mock("../../src/command/factory", () => {
   return {
-    buildGenerateContractCodeUseCaseFactory: () =>
-      generateContractCodeUseCaseMock,
+    buildGenerateContractCodeUseCase: () => generateContractCodeUseCaseMock,
     buildGetContractUseCase: () => getContractUseCaseMock,
   };
 });

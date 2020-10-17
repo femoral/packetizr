@@ -1,31 +1,33 @@
-using System;
-using System.IO;
-using System.Text;
+package packets
 
-public class {{modelType}}PacketDeserializer : IPacketDeserializer<{{modelType}}> {
-    public {{modelType}} Deserialize(byte[] buffer) {
-        var message = new {{modelType}}();
+import (
+    "bytes"
+    "encoding/binary"
+)
 
-        using (var m = new MemoryStream(buffer)) {
-            using (var r = new BinaryReader(m)) {
-        {{#each fields as |field|}}
-            {{#if field.isNumeric}}
-                {{> deserializer-numeric field}}
-            {{/if}}
-            {{#if field.isVarchar}}
-                {{> deserializer-varchar field}}
-            {{/if}}
-            {{#if field.isChar}}
-                {{> deserializer-char field}}
-            {{/if}}
-            {{#if field.isSingleByte}}
-                {{> deserializer-single-byte field}}
-            {{/if}}
+type {{modelType}}Deserializer struct {
+}
 
-        {{/each}}
-            }
-        }
+func New{{modelType}}Deserializer() *{{modelType}}Deserializer {
+    return &{{modelType}}Deserializer{}
+}
 
-        return message;
-    }
+func (r *{{modelType}}Deserializer) Deserialize(messageBytes []byte) *{{modelType}} {
+    buffer := bytes.NewBuffer(messageBytes)
+    message := &{{modelType}}{}
+
+{{#each fields as |field|~}}
+{{~#if field.isNumeric}}
+    {{> deserializer-numeric field}}
+{{/if}}
+{{~#if field.isVarchar}}
+    {{> deserializer-varchar field}}
+{{/if}}
+{{~#if field.isChar}}
+    {{> deserializer-char field}}
+{{/if}}
+
+{{/each}}
+
+    return message
 }

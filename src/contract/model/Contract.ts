@@ -1,10 +1,9 @@
-import {Packet} from "./Packet";
+import { Packet } from "./Packet";
 
 export class Contract {
-    constructor(private _packets: Packet[]) {
-    }
+  constructor(private _packets: Packet[]) {}
 
-    get packets(): Packet[] {
-        return this._packets;
-    }
+  get packets(): Packet[] {
+    return this._packets;
+  }
 }

@@ -8,7 +8,7 @@ export function buildGetContractUseCase(contractFilePath: string) {
   return new GetContractUseCase(contractReader);
 }
 
-export async function buildGenerateContractCodeUseCaseFactory(
+export async function buildGenerateContractCodeUseCase(
   outputDirectory: string,
   language: string
 ) {
@@ -17,4 +17,4 @@ export async function buildGenerateContractCodeUseCaseFactory(
     await import(`../../code-generation/${language}`)
   ).generator();
   return new GenerateContractCodeUseCase(codeGenerator, fileWriter);
-} 
+}
