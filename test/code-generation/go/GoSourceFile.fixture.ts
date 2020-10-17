@@ -3,7 +3,12 @@ import * as fs from "fs";
 
 export class GoSourceFileFixture {
   static buildListOk(): SourceFile[] {
-    return [this.buildPacket1Model(), this.buildPacket2Model()];
+    return [
+      this.buildPacket1Model(),
+      this.buildPacket2Model(),
+      this.buildPacket1Serializer(),
+      this.buildPacket2Serializer(),
+    ];
   }
 
   static buildPacket1Model(): SourceFile {

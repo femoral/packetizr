@@ -1,7 +1,9 @@
 export interface SerializerClass {
   modelType: string;
   fields: {
-    name: string;
+    endianness: string;
+    camelCaseName: string;
+    pascalCaseName: string;
     isNumeric: boolean;
     isChar: boolean;
     isVarchar: boolean;
