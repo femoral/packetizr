@@ -29,7 +29,7 @@ describe("execute is called with GenerateArgs", () => {
   describe("GetContractUseCase resolved contract", () => {
     beforeEach(() => {
       getContractUseCaseMock.execute.mockReturnValueOnce(
-        Promise.resolve(ContractFixture.buildOk())
+        Promise.resolve(ContractFixture.buildPlainContract())
       );
     });
 
@@ -37,7 +37,7 @@ describe("execute is called with GenerateArgs", () => {
       await generate.execute({ file: "file", out: "out", language: "csharp" });
 
       expect(generateContractCodeUseCaseMock.execute).toHaveBeenCalledWith(
-        ContractFixture.buildOk()
+        ContractFixture.buildPlainContract()
       );
     });
   });

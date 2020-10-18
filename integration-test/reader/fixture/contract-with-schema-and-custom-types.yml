@@ -1,7 +1,16 @@
 packets:
   - header: 1
-    name: NumbersMessage
+    name: CustomMessage
     fields:
+      customAttributeOfNumbers:
+        type: object
+        schema: NumbersObject
+      customAttributeOfStrings:
+        type: object
+        schema: StringsObject
+components:
+  schemas:
+    NumbersObject:
       int32Field:
         type: int32
       float32Field:
@@ -16,9 +25,7 @@ packets:
         type: uint16
       uint8Field:
         type: uint8
-  - header: 2
-    name: StringsMessage
-    fields:
+    StringsObject:
       varcharField:
         type: varchar
       charField:

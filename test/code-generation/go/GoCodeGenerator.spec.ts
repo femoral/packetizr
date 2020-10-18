@@ -10,7 +10,7 @@ import { DeserializerGenerator } from "../../../src/code-generation/go/Deseriali
 it("Should return an array of source files, when generate is called with contract", () => {
   let generator = setUp();
 
-  let sourceFiles = generator.generate(ContractFixture.buildOk());
+  let sourceFiles = generator.generate(ContractFixture.buildPlainContract());
 
   expect(sourceFiles.sort()).toEqual(GoSourceFileFixture.buildListOk().sort());
 });

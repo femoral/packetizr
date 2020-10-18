@@ -1,0 +1,17 @@
+packets:
+  - header: 1
+    name: CustomMessage
+    fields:
+      customAttributeOfStrings:
+        type: object
+        schema: ParentObject
+components:
+  schemas:
+    ParentObject:
+      childObjectField:
+        type: object
+        schema: ChildObject
+    ChildObject:
+      circularDependencyField:
+        type: object
+        schema: ParentObject
