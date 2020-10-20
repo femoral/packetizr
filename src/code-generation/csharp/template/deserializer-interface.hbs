@@ -1,3 +1,5 @@
+using System.IO;
+
 public interface IPacketDeserializer<out TModel> {
-    TModel Deserialize(byte[] buffer);
+    TModel Deserialize(BinaryReader reader);
 }

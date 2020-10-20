@@ -6,31 +6,34 @@ import (
 )
 
 type TestMessageDeserializer struct {
+    customTypeDtoDeserializer *CustomTypeDtoDeserializer
 }
 
 func NewTestMessageDeserializer() *TestMessageDeserializer {
-    return &TestMessageDeserializer{}
+    return &TestMessageDeserializer{
+        NewCustomTypeDtoDeserializer(),
+    }
 }
 
-func (r *TestMessageDeserializer) Deserialize(messageBytes []byte) *TestMessage {
-    buffer := bytes.NewBuffer(messageBytes)
-    message := &TestMessage{}
+func (r *TestMessageDeserializer) Deserialize(buffer *bytes.Buffer) *TestMessage {
+    model := &TestMessage{}
 
-    _ = binary.Read(buffer, binary.LittleEndian, &message.Int32Field)
-    _ = binary.Read(buffer, binary.LittleEndian, &message.Float32Field)
-    _ = binary.Read(buffer, binary.LittleEndian, &message.Int16Field)
-    _ = binary.Read(buffer, binary.LittleEndian, &message.Int8Field)
+    _ = binary.Read(buffer, binary.LittleEndian, &model.Int32Field)
+    _ = binary.Read(buffer, binary.LittleEndian, &model.Float32Field)
+    _ = binary.Read(buffer, binary.LittleEndian, &model.Int16Field)
+    _ = binary.Read(buffer, binary.LittleEndian, &model.Int8Field)
     var varcharFieldLength uint8
     _ = binary.Read(buffer, binary.LittleEndian, &varcharFieldLength)
     varcharFieldBytes := make([]byte, varcharFieldLength)
     _ = binary.Read(buffer, binary.BigEndian, &varcharFieldBytes)
-    message.VarcharField = string(varcharFieldBytes)
+    model.VarcharField = string(varcharFieldBytes)
     charFieldBytes := make([]byte, 10)
     _ = binary.Read(buffer, binary.BigEndian, &charFieldBytes)
-    message.CharField = string(charFieldBytes)
-    _ = binary.Read(buffer, binary.LittleEndian, &message.Uint32Field)
-    _ = binary.Read(buffer, binary.LittleEndian, &message.Uint16Field)
-    _ = binary.Read(buffer, binary.LittleEndian, &message.Uint8Field)
+    model.CharField = string(charFieldBytes)
+    _ = binary.Read(buffer, binary.LittleEndian, &model.Uint32Field)
+    _ = binary.Read(buffer, binary.LittleEndian, &model.Uint16Field)
+    _ = binary.Read(buffer, binary.LittleEndian, &model.Uint8Field)
+    model.CustomTypeField = r.customTypeDtoDeserializer.Deserialize(buffer)
 
-    return message
+    return model
 }

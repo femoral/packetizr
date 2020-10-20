@@ -2,32 +2,42 @@ package packets
 
 import (
     "bytes"
+{{#if importBinaryPackage}}
     "encoding/binary"
+{{/if}}
 )
 
-type {{modelType}}Serializer struct {
+type {{model.pascalCaseName}}Serializer struct {
+{{#each schemas as |schema|}}
+    {{schema.camelCaseName}}DtoSerializer *{{schema.pascalCaseName}}DtoSerializer
+{{/each}}
 }
 
-func New{{modelType}}Serializer() *{{modelType}}Serializer {
-    return &{{modelType}}Serializer{}
+func New{{model.pascalCaseName}}Serializer() *{{model.pascalCaseName}}Serializer {
+    return &{{model.pascalCaseName}}Serializer{
+    {{#each schemas as |schema|}}
+        New{{schema.pascalCaseName}}DtoSerializer(),
+    {{/each}}
+    }
 }
 
-func (r *{{modelType}}Serializer) Serialize(message *{{modelType}}) []byte {
-    var buffer bytes.Buffer
-
-    _ = binary.Write(&buffer, binary.LittleEndian, {{modelType}}Header)
-{{#each fields as |field|~}}
+func (r *{{model.pascalCaseName}}Serializer) Serialize({{model.camelCaseName}} *{{model.pascalCaseName}}, buffer *bytes.Buffer) {
+{{#if isPacket}}
+    _ = binary.Write(buffer, binary.LittleEndian, {{model.pascalCaseName}}Header)
+{{/if}}
+{{#each fields as | field |~}}
 {{~#if field.isNumeric}}
-    {{> serializer-numeric field}}
+    {{> serializer-numeric field=field model=../model}}
 {{/if}}
 {{~#if field.isVarchar}}
-    {{> serializer-varchar field}}
+    {{> serializer-varchar field=field model=../model}}
 {{/if}}
 {{~#if field.isChar}}
-    {{> serializer-char field}}
+    {{> serializer-char field=field model=../model}}
+{{/if}}
+{{~#if field.isObject}}
+    {{> serializer-object field=field model=../model}}
 {{/if}}
 
 {{/each}}
-
-    return buffer.Bytes()
 }

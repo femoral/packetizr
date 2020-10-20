@@ -3,23 +3,27 @@ using System.IO;
 using System.Text;
 
 public class TestMessagePacketDeserializer : IPacketDeserializer<TestMessage> {
-    public TestMessage Deserialize(byte[] buffer) {
-        var message = new TestMessage();
 
-        using (var m = new MemoryStream(buffer)) {
-            using (var r = new BinaryReader(m)) {
-                message.Int32Field = BitConverter.ToInt32(r.ReadBytes(4), 0);
-                message.Float32Field = BitConverter.ToSingle(r.ReadBytes(4), 0);
-                message.Int16Field = BitConverter.ToInt16(r.ReadBytes(2), 0);
-                message.Int8Field = (sbyte) r.ReadByte();
-                message.VarcharField = Encoding.ASCII.GetString(r.ReadBytes(r.ReadByte()));
-                message.CharField = Encoding.ASCII.GetString(r.ReadBytes(10));
-                message.Uint32Field = BitConverter.ToUInt32(r.ReadBytes(4), 0);
-                message.Uint16Field = BitConverter.ToUInt16(r.ReadBytes(2), 0);
-                message.Uint8Field = r.ReadByte();
-            }
-        }
+    private readonly IPacketDeserializer<CustomTypeDto> _customTypeDtoDeserializer;
 
-        return message;
+    public TestMessagePacketDeserializer() {
+        _customTypeDtoDeserializer = new CustomTypeDtoPacketDeserializer();
+    }
+
+    public TestMessage Deserialize(BinaryReader reader) {
+        var model = new TestMessage();
+
+        model.Int32Field = BitConverter.ToInt32(reader.ReadBytes(4), 0);
+        model.Float32Field = BitConverter.ToSingle(reader.ReadBytes(4), 0);
+        model.Int16Field = BitConverter.ToInt16(reader.ReadBytes(2), 0);
+        model.Int8Field = (sbyte) reader.ReadByte();
+        model.VarcharField = Encoding.ASCII.GetString(reader.ReadBytes(reader.ReadByte()));
+        model.CharField = Encoding.ASCII.GetString(reader.ReadBytes(10));
+        model.Uint32Field = BitConverter.ToUInt32(reader.ReadBytes(4), 0);
+        model.Uint16Field = BitConverter.ToUInt16(reader.ReadBytes(2), 0);
+        model.Uint8Field = reader.ReadByte();
+        model.CustomTypeField = _customTypeDtoDeserializer.Deserialize(reader);
+
+        return model;
     }
 }

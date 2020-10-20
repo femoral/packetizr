@@ -12,7 +12,7 @@ components:
         type: varchar
       charField:
         type: char
-        length: 4
+        length: 10
       circularDependencyField:
         type: object
         schema: StringsObject

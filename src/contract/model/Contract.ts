@@ -7,4 +7,8 @@ export class Contract {
   get packets(): Packet[] {
     return this._packets;
   }
+
+  get typeSchemas(): TypeSchema[] {
+    return this._typeSchemas;
+  }
 }

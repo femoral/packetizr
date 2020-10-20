@@ -29,4 +29,8 @@ export class TypeSchemaFixture {
       FieldFixture.buildListOfStringFields()
     );
   }
+
+  static buildCustomType() {
+    return new TypeSchema("CustomType", FieldFixture.buildListOfStringFields());
+  }
 }

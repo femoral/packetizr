@@ -2,19 +2,27 @@ package packets
 
 import (
     "bytes"
+{{#if importBinaryPackage}}
     "encoding/binary"
+{{/if}}
 )
 
 type {{modelType}}Deserializer struct {
+{{#each schemas as |schema|}}
+    {{schema.camelCaseName}}DtoDeserializer *{{schema.pascalCaseName}}DtoDeserializer
+{{/each}}
 }
 
 func New{{modelType}}Deserializer() *{{modelType}}Deserializer {
-    return &{{modelType}}Deserializer{}
+    return &{{modelType}}Deserializer{
+    {{#each schemas as |schema|}}
+        New{{schema.pascalCaseName}}DtoDeserializer(),
+    {{/each}}
+    }
 }
 
-func (r *{{modelType}}Deserializer) Deserialize(messageBytes []byte) *{{modelType}} {
-    buffer := bytes.NewBuffer(messageBytes)
-    message := &{{modelType}}{}
+func (r *{{modelType}}Deserializer) Deserialize(buffer *bytes.Buffer) *{{modelType}} {
+    model := &{{modelType}}{}
 
 {{#each fields as |field|~}}
 {{~#if field.isNumeric}}
@@ -26,8 +34,11 @@ func (r *{{modelType}}Deserializer) Deserialize(messageBytes []byte) *{{modelTyp
 {{~#if field.isChar}}
     {{> deserializer-char field}}
 {{/if}}
+{{~#if field.isObject}}
+    {{> deserializer-object field}}
+{{/if}}
 
 {{/each}}
 
-    return message
+    return model
 }

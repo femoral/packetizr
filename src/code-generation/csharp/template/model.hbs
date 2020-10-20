@@ -1,6 +1,7 @@
-public class {{ className }} {
-    public const ushort Header = {{header}};
+public class {{ className }}{{#unless isPacket}}Dto{{/unless}} {
+{{#if isPacket}}    public const ushort Header = {{header}};
 
+{{/if}}
 {{#each fields as |field|}}
     public {{field.type}} {{field.name}} {get; set;}
 {{/each}}

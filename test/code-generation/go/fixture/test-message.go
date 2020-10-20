@@ -12,4 +12,5 @@ type TestMessage struct {
     Uint32Field uint32
     Uint16Field uint16
     Uint8Field uint8
+    CustomTypeField *CustomTypeDto
 }

@@ -38,6 +38,19 @@ export class ContractFixture {
     );
   }
 
+  static buildContractWithCustomTypes() {
+    return new Contract(
+      [
+        PacketFixture.buildPacketWithNumbersOnly(),
+        PacketFixture.buildPacketWithStringsOnly(),
+      ],
+      [
+        TypeSchemaFixture.buildNumbersObjectSchema(),
+        TypeSchemaFixture.buildStringsObjectSchema(),
+      ]
+    );
+  }
+
   static buildContractWithNestedCustomTypes() {
     return new Contract(
       [PacketFixture.buildPacketWithNestedCustomTypes()],

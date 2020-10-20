@@ -10,4 +10,5 @@ public class TestMessage {
     public uint Uint32Field {get; set;}
     public ushort Uint16Field {get; set;}
     public byte Uint8Field {get; set;}
+    public CustomTypeDto CustomTypeField {get; set;}
 }

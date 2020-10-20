@@ -1,6 +1,21 @@
 import { Field, FieldTypes } from "../../../src/contract/model/Field";
 
 export class FieldFixture {
+  static buildListOfAllKindOfFields(): Field[] {
+    return [
+      new Field("Int32Field", FieldTypes.INT32),
+      new Field("Float32Field", FieldTypes.FLOAT32),
+      new Field("Int16Field", FieldTypes.INT16),
+      new Field("Int8Field", FieldTypes.INT8),
+      new Field("VarcharField", FieldTypes.VARCHAR),
+      new Field("CharField", FieldTypes.CHAR, 10),
+      new Field("Uint32Field", FieldTypes.UINT32),
+      new Field("Uint16Field", FieldTypes.UINT16),
+      new Field("Uint8Field", FieldTypes.UINT8),
+      new Field("CustomTypeField", FieldTypes.OBJECT, 0, "CustomType"),
+    ];
+  }
+
   static buildListOfAllKindsOfFieldsWithLowerCaseNames(): Field[] {
     return [
       new Field("int32Field", FieldTypes.INT32),
@@ -12,13 +27,14 @@ export class FieldFixture {
       new Field("uint32Field", FieldTypes.UINT32),
       new Field("uint16Field", FieldTypes.UINT16),
       new Field("uint8Field", FieldTypes.UINT8),
+      new Field("customTypeField", FieldTypes.OBJECT, 0, "customType"),
     ];
   }
 
   static buildListOfStringFields(): Field[] {
     return [
       new Field("varcharField", FieldTypes.VARCHAR),
-      new Field("charField", FieldTypes.CHAR, 4),
+      new Field("charField", FieldTypes.CHAR, 10),
     ];
   }
 
@@ -31,20 +47,6 @@ export class FieldFixture {
       new Field("uint32Field", FieldTypes.UINT32),
       new Field("uint16Field", FieldTypes.UINT16),
       new Field("uint8Field", FieldTypes.UINT8),
-    ];
-  }
-
-  static buildListOfAllKindOfFields(): Field[] {
-    return [
-      new Field("Int32Field", FieldTypes.INT32),
-      new Field("Float32Field", FieldTypes.FLOAT32),
-      new Field("Int16Field", FieldTypes.INT16),
-      new Field("Int8Field", FieldTypes.INT8),
-      new Field("VarcharField", FieldTypes.VARCHAR),
-      new Field("CharField", FieldTypes.CHAR, 10),
-      new Field("Uint32Field", FieldTypes.UINT32),
-      new Field("Uint16Field", FieldTypes.UINT16),
-      new Field("Uint8Field", FieldTypes.UINT8),
     ];
   }
 

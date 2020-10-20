@@ -4,19 +4,26 @@ import { SourceFile } from "../SourceFile";
 import { TemplateContainer } from "./TemplateContainer";
 import * as changeCase from "change-case";
 import { pascalCase } from "change-case";
+import { TypeSchema } from "../../contract/model/TypeSchema";
+import { ModelClass } from "./model/ModelClass";
 
 export class ModelGenerator {
   constructor(private _templateContainer: TemplateContainer) {}
 
-  generate(packet: Packet): SourceFile {
+  generate(model: Packet | TypeSchema): SourceFile {
+    const isPacket = model instanceof Packet;
     return {
-      name: `${changeCase.snakeCase(packet.name).replace("_", "-")}.go`,
-      content: this._templateContainer.build("model", {
-        className: pascalCase(packet.name),
-        header: packet.header,
-        fields: packet.fields.map((field) => ({
+      name: `${changeCase.snakeCase(model.name).replace("_", "-")}${
+        isPacket ? "" : "-dto"
+      }.go`,
+      content: this._templateContainer.build<ModelClass>("model", {
+        isPacket,
+        className: pascalCase(model.name),
+        header: !(model instanceof TypeSchema) ? model.header : undefined,
+        fields: model.fields.map((field) => ({
           type: this.getType(field),
           name: pascalCase(field.name),
+          isObject: field.type === FieldTypes.OBJECT,
         })),
       }),
     };
@@ -42,6 +49,8 @@ export class ModelGenerator {
         return "string";
       case FieldTypes.FLOAT32:
         return "float32";
+      case FieldTypes.OBJECT:
+        return `${pascalCase(field.schema)}Dto`;
     }
   }
 }

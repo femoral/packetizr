@@ -6,6 +6,7 @@ import { GoSourceFileFixture } from "./GoSourceFile.fixture";
 import { GoCodeGenerator } from "../../../src/code-generation/go/GoCodeGenerator";
 import { SerializerGenerator } from "../../../src/code-generation/go/SerializerGenerator";
 import { DeserializerGenerator } from "../../../src/code-generation/go/DeserializerGenerator";
+import { TypeSchemaFixture } from "../../contract/model/TypeSchema.fixture";
 
 it("Should return an array of source files, when generate is called with contract", () => {
   let generator = setUp();
@@ -13,6 +14,18 @@ it("Should return an array of source files, when generate is called with contrac
   let sourceFiles = generator.generate(ContractFixture.buildPlainContract());
 
   expect(sourceFiles.sort()).toEqual(GoSourceFileFixture.buildListOk().sort());
+});
+
+it("Should return an array of source files, when compile is called with contract without schemas", () => {
+  let generator = setUp();
+
+  let sourceFiles = generator.generate(
+    ContractFixture.buildContractWithCustomTypes()
+  );
+
+  expect(sourceFiles.sort()).toEqual(
+    GoSourceFileFixture.buildListWithCustomTypes().sort()
+  );
 });
 
 function setUp() {
@@ -41,6 +54,17 @@ function setupModelMocks(modelGeneratorMock: ModelGenerator) {
       deepEqual(PacketFixture.buildPacketWithStringsOnly())
     )
   ).thenReturn(GoSourceFileFixture.buildPacket2Model());
+
+  when(
+    modelGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildStringsObjectSchema())
+    )
+  ).thenReturn(GoSourceFileFixture.buildStringsCustomTypeModel());
+  when(
+    modelGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildNumbersObjectSchema())
+    )
+  ).thenReturn(GoSourceFileFixture.buildNumbersCustomTypeModel());
 }
 
 function setupSerializerMocks(serializerGeneratorMock: SerializerGenerator) {
@@ -54,6 +78,17 @@ function setupSerializerMocks(serializerGeneratorMock: SerializerGenerator) {
       deepEqual(PacketFixture.buildPacketWithStringsOnly())
     )
   ).thenReturn(GoSourceFileFixture.buildPacket2Serializer());
+
+  when(
+    serializerGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildStringsObjectSchema())
+    )
+  ).thenReturn(GoSourceFileFixture.buildStringsCustomTypeSerializer());
+  when(
+    serializerGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildNumbersObjectSchema())
+    )
+  ).thenReturn(GoSourceFileFixture.buildNumbersCustomTypeSerializer());
 }
 
 function setupDeserializerMocks(
@@ -69,4 +104,15 @@ function setupDeserializerMocks(
       deepEqual(PacketFixture.buildPacketWithStringsOnly())
     )
   ).thenReturn(GoSourceFileFixture.buildPacket2Deserializer());
+
+  when(
+    deserializerGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildStringsObjectSchema())
+    )
+  ).thenReturn(GoSourceFileFixture.buildStringsCustomTypeDeserializer());
+  when(
+    deserializerGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildNumbersObjectSchema())
+    )
+  ).thenReturn(GoSourceFileFixture.buildNumbersCustomTypeDeserializer());
 }

@@ -26,6 +26,15 @@ export class CSharpCodeGenerator implements CodeGenerator {
         this._deserializerGenerator.generate(packet)
       ),
       ...this._boilerplateGenerator.generate(),
+      ...contract.typeSchemas.map((schema) =>
+        this._modelGenerator.generate(schema)
+      ),
+      ...contract.typeSchemas.map((schema) =>
+        this._serializerGenerator.generate(schema)
+      ),
+      ...contract.typeSchemas.map((schema) =>
+        this._deserializerGenerator.generate(schema)
+      ),
     ];
   }
 }

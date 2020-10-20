@@ -1,11 +1,18 @@
 export interface SerializerClass {
-  modelType: string;
+  importBinaryPackage: boolean;
+  isPacket: boolean;
+  model: {
+    pascalCaseName: string;
+    camelCaseName: string;
+  };
   fields: {
-    endianness: string;
     camelCaseName: string;
     pascalCaseName: string;
     isNumeric: boolean;
     isChar: boolean;
     isVarchar: boolean;
+    isObject: boolean;
+    schema?: string;
   }[];
+  schemas: { pascalCaseName: string; camelCaseName: string }[];
 }
