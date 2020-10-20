@@ -49,4 +49,12 @@ export class PacketFixture {
       FieldFixture.buildListWithParentObject()
     );
   }
+
+  static buildPacketWithArrayFieldOnly() {
+    return new Packet(
+      "ArrayMessage",
+      1,
+      FieldFixture.buildListWithArrayField()
+    );
+  }
 }

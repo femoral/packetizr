@@ -59,4 +59,5 @@ export enum FieldTypes {
   VARCHAR = "varchar",
   CHAR = "char",
   OBJECT = "object",
+  ARRAY = "array",
 }

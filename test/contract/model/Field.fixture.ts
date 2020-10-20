@@ -74,4 +74,8 @@ export class FieldFixture {
   static buildListWithChildObject() {
     return [new Field("childField", FieldTypes.OBJECT, 0, "ChildObject")];
   }
+
+  static buildListWithArrayField() {
+    return [new Field("arrayField", FieldTypes.ARRAY, 0, "StringsObject")];
+  }
 }

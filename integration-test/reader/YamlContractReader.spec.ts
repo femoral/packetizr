@@ -70,5 +70,28 @@ describe("read is called", () => {
           .catch(() => done());
       });
     });
+
+    describe("array field is defined", () => {
+      it("should resolve contract with array field", async () => {
+        let yamlReader = new YamlContractReader(
+          "./integration-test/reader/fixture/contract-with-array.yml"
+        );
+
+        let object = await yamlReader.read();
+
+        expect(object).toEqual(ContractFixture.buildContractWithArrayField());
+      });
+
+      it("should reject, given array schema is not defined", (done) => {
+        let yamlReader = new YamlContractReader(
+          "./integration-test/reader/fixture/contract-with-array-with-missing-schema.yml"
+        );
+
+        yamlReader
+          .read()
+          .then(() => fail("should reject"))
+          .catch(() => done());
+      });
+    });
   });
 });

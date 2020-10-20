@@ -60,4 +60,11 @@ export class ContractFixture {
       ]
     );
   }
+
+  static buildContractWithArrayField() {
+    return new Contract(
+      [PacketFixture.buildPacketWithArrayFieldOnly()],
+      [new TypeSchema("StringsObject", FieldFixture.buildListOfStringFields())]
+    );
+  }
 }
