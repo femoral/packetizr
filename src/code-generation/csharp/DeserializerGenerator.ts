@@ -3,19 +3,31 @@ import { SourceFile } from "../SourceFile";
 import { TemplateContainer } from "./TemplateContainer";
 import { FieldTypes } from "../../contract/model/Field";
 import { DeserializerClass } from "./model/DeserializerClass";
-import { pascalCase } from "change-case";
+import { camelCase, pascalCase } from "change-case";
+import { TypeSchema } from "../../contract/model/TypeSchema";
 
 export class DeserializerGenerator {
   constructor(private _templateContainer: TemplateContainer) {}
 
-  generate(packet: Packet): SourceFile {
+  generate(model: Packet | TypeSchema): SourceFile {
+    const isPacket = model instanceof Packet;
+    const schemas = model.fields
+      .filter((field) => field.type === FieldTypes.OBJECT)
+      .map((field) => ({
+        pascalCaseName: pascalCase(field.schema),
+        camelCaseName: camelCase(field.schema),
+      }));
     return {
-      name: `${pascalCase(packet.name)}PacketDeserializer.cs`,
+      name: `${pascalCase(model.name)}${
+        isPacket ? "" : "Dto"
+      }PacketDeserializer.cs`,
       content: this._templateContainer.build<DeserializerClass>(
         "deserializer",
         {
-          modelType: pascalCase(packet.name),
-          fields: packet.fields.map((field) => ({
+          hasCustomTypes: schemas.length > 0,
+          modelType: `${pascalCase(model.name)}${isPacket ? "" : "Dto"}`,
+          schemas,
+          fields: model.fields.map((field) => ({
             name: pascalCase(field.name),
             length: field.length,
             isChar: field.type == FieldTypes.CHAR,
@@ -24,13 +36,16 @@ export class DeserializerGenerator {
               field.type != FieldTypes.CHAR &&
               field.type != FieldTypes.VARCHAR &&
               field.type != FieldTypes.UINT8 &&
-              field.type != FieldTypes.INT8,
+              field.type != FieldTypes.INT8 &&
+              field.type != FieldTypes.OBJECT,
             isSingleByte:
               field.type == FieldTypes.UINT8 || field.type == FieldTypes.INT8,
             isSigned:
               field.type == FieldTypes.INT32 ||
               field.type == FieldTypes.INT16 ||
               field.type == FieldTypes.INT8,
+            isObject: field.type == FieldTypes.OBJECT,
+            schema: camelCase(field.schema),
             bitConverterMethod: this.getBitConverterMethod(field.type),
           })),
         }

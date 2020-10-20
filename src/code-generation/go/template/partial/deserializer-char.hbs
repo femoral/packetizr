@@ -1,3 +1,3 @@
 {{camelCaseName}}Bytes := make([]byte, {{length}})
 _ = binary.Read(buffer, binary.BigEndian, &{{camelCaseName}}Bytes)
-message.{{pascalCaseName}} = string({{camelCaseName}}Bytes)
+model.{{pascalCaseName}} = string({{camelCaseName}}Bytes)

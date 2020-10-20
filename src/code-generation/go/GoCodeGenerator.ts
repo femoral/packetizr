@@ -22,6 +22,15 @@ export class GoCodeGenerator {
       ...contract.packets.map((packet) =>
         this._deserializerGenerator.generate(packet)
       ),
+      ...contract.typeSchemas.map((schema) =>
+        this._modelGenerator.generate(schema)
+      ),
+      ...contract.typeSchemas.map((schema) =>
+        this._serializerGenerator.generate(schema)
+      ),
+      ...contract.typeSchemas.map((schema) =>
+        this._deserializerGenerator.generate(schema)
+      ),
     ];
   }
 }

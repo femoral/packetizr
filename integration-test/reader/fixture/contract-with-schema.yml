@@ -1,0 +1,49 @@
+packets:
+  - header: 1
+    name: NumbersMessage
+    fields:
+      int32Field:
+        type: int32
+      float32Field:
+        type: float32
+      int16Field:
+        type: int16
+      int8Field:
+        type: int8
+      uint32Field:
+        type: uint32
+      uint16Field:
+        type: uint16
+      uint8Field:
+        type: uint8
+  - header: 2
+    name: StringsMessage
+    fields:
+      varcharField:
+        type: varchar
+      charField:
+        type: char
+        length: 10
+components:
+  schemas:
+    NumbersObject:
+      int32Field:
+        type: int32
+      float32Field:
+        type: float32
+      int16Field:
+        type: int16
+      int8Field:
+        type: int8
+      uint32Field:
+        type: uint32
+      uint16Field:
+        type: uint16
+      uint8Field:
+        type: uint8
+    StringsObject:
+      varcharField:
+        type: varchar
+      charField:
+        type: char
+        length: 10

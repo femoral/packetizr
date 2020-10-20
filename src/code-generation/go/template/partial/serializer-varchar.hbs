@@ -1,3 +1,3 @@
-{{camelCaseName}}Bytes := []byte(message.{{pascalCaseName}})
-_ = binary.Write(&buffer, binary.LittleEndian, uint8(len({{camelCaseName}}Bytes)))
-buffer.Write({{camelCaseName}}Bytes)
+{{field.camelCaseName}}Bytes := []byte({{model.camelCaseName}}.{{field.pascalCaseName}})
+_ = binary.Write(buffer, binary.LittleEndian, uint8(len({{field.camelCaseName}}Bytes)))
+buffer.Write({{field.camelCaseName}}Bytes)

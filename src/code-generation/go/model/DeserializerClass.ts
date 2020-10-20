@@ -1,4 +1,5 @@
 export interface DeserializerClass {
+  importBinaryPackage: boolean;
   modelType: string;
   fields: {
     pascalCaseName: string;
@@ -7,6 +8,8 @@ export interface DeserializerClass {
     isNumeric: boolean;
     isChar: boolean;
     isVarchar: boolean;
-    endianness: string;
+    isObject: boolean;
+    schema?: string;
   }[];
+  schemas: { pascalCaseName: string; camelCaseName: string }[];
 }

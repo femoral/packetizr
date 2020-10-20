@@ -1,0 +1,19 @@
+packets:
+  - header: 1
+    name: CustomMessage
+    fields:
+      parentField:
+        type: object
+        schema: ParentObject
+components:
+  schemas:
+    ParentObject:
+      childField:
+        type: object
+        schema: ChildObject
+    ChildObject:
+      varcharField:
+        type: varchar
+      charField:
+        type: char
+        length: 10

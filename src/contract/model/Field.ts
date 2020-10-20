@@ -1,4 +1,13 @@
 export class Field {
+  constructor(
+    private readonly _name: string,
+    private readonly _type: FieldTypes,
+    private readonly _length = 0,
+    private readonly _schema?: string
+  ) {
+    this._length = this._getFieldLength(this._type);
+  }
+
   get name(): string {
     return this._name;
   }
@@ -11,38 +20,30 @@ export class Field {
     return this._length;
   }
 
-  constructor(
-    private _name: string,
-    private _type: FieldTypes,
-    private _length = 0
-  ) {
-    switch (_type) {
+  get schema(): string {
+    return this._schema || this._type;
+  }
+
+  private _getFieldLength(type: FieldTypes): number {
+    switch (type) {
       case FieldTypes.FLOAT32:
-        this._length = 4;
-        break;
+        return 4;
       case FieldTypes.INT32:
-        this._length = 4;
-        break;
+        return 4;
       case FieldTypes.INT16:
-        this._length = 2;
-        break;
+        return 2;
       case FieldTypes.INT8:
-        this._length = 1;
-        break;
+        return 1;
       case FieldTypes.UINT32:
-        this._length = 4;
-        break;
+        return 4;
       case FieldTypes.UINT16:
-        this._length = 2;
-        break;
+        return 2;
       case FieldTypes.UINT8:
-        this._length = 1;
-        break;
+        return 1;
       case FieldTypes.VARCHAR:
-        this._length = 0;
-        break;
-      case FieldTypes.CHAR:
-        break;
+        return 0;
+      default:
+        return this._length;
     }
   }
 }
@@ -57,4 +58,5 @@ export enum FieldTypes {
   UINT8 = "uint8",
   VARCHAR = "varchar",
   CHAR = "char",
+  OBJECT = "object",
 }

@@ -1,3 +1,5 @@
+using System.IO;
+
 public interface IPacketSerializer<in TModel> {
-    byte[] Serialize(TModel model);
+    void Serialize(TModel model, BinaryWriter writer);
 }

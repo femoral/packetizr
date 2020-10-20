@@ -1,0 +1,18 @@
+packets:
+  - header: 1
+    name: CustomMessage
+    fields:
+      customAttributeOfStrings:
+        type: object
+        schema: StringsObject
+components:
+  schemas:
+    StringsObject:
+      varcharField:
+        type: varchar
+      charField:
+        type: char
+        length: 10
+      circularDependencyField:
+        type: object
+        schema: StringsObject

@@ -1,1 +1,1 @@
-_ = binary.Write(&buffer, binary.{{endianness}}, message.{{pascalCaseName}})
+_ = binary.Write(buffer, binary.LittleEndian, {{model.camelCaseName}}.{{field.pascalCaseName}})

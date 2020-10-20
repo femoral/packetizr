@@ -1,5 +1,4 @@
 import { SourceFile } from "../../../src/code-generation/SourceFile";
-import * as fs from "fs";
 
 export class GoSourceFileFixture {
   static buildListOk(): SourceFile[] {
@@ -10,6 +9,23 @@ export class GoSourceFileFixture {
       this.buildPacket2Serializer(),
       this.buildPacket1Deserializer(),
       this.buildPacket2Deserializer(),
+    ];
+  }
+
+  static buildListWithCustomTypes(): SourceFile[] {
+    return [
+      this.buildPacket1Model(),
+      this.buildPacket2Model(),
+      this.buildPacket1Serializer(),
+      this.buildPacket2Serializer(),
+      this.buildPacket1Deserializer(),
+      this.buildPacket2Deserializer(),
+      this.buildNumbersCustomTypeModel(),
+      this.buildStringsCustomTypeModel(),
+      this.buildNumbersCustomTypeSerializer(),
+      this.buildStringsCustomTypeSerializer(),
+      this.buildNumbersCustomTypeDeserializer(),
+      this.buildStringsCustomTypeDeserializer(),
     ];
   }
 
@@ -49,25 +65,45 @@ export class GoSourceFileFixture {
     };
   }
 
-  static buildBoilerplateFiles() {
-    return [this.buildSerializerInterface(), this.buildDeserializerInterface()];
-  }
-
-  static buildSerializerInterface(): SourceFile {
+  static buildNumbersCustomTypeDeserializer(): SourceFile {
     return {
-      name: "IPacketSerializer.go",
-      content: fs
-        .readFileSync(`${__dirname}/fixture/IPacketSerializer.go`)
-        .toString(),
+      name: "NumbersCustomTypeDeserializer.go",
+      content: "NumbersCustomTypeDeserializer content",
     };
   }
 
-  private static buildDeserializerInterface() {
+  static buildNumbersCustomTypeSerializer(): SourceFile {
     return {
-      name: "IPacketDeserializer.go",
-      content: fs
-        .readFileSync(`${__dirname}/fixture/IPacketDeserializer.go`)
-        .toString(),
+      name: "NumbersCustomTypeSerializer.go",
+      content: "NumbersCustomTypeSerializer content",
+    };
+  }
+
+  static buildNumbersCustomTypeModel() {
+    return {
+      name: "NumbersCustomTypeModel.go",
+      content: "NumbersCustomTypeModel content",
+    };
+  }
+
+  static buildStringsCustomTypeDeserializer(): SourceFile {
+    return {
+      name: "StringsCustomTypeDeserializer.go",
+      content: "StringsCustomTypeDeserializer content",
+    };
+  }
+
+  static buildStringsCustomTypeSerializer(): SourceFile {
+    return {
+      name: "StringsCustomTypeSerializer.go",
+      content: "StringsCustomTypeSerializer content",
+    };
+  }
+
+  static buildStringsCustomTypeModel() {
+    return {
+      name: "StringsCustomTypeModel.go",
+      content: "StringsCustomTypeModel content",
     };
   }
 }

@@ -7,14 +7,27 @@ import { SerializerGenerator } from "../../../src/code-generation/csharp/Seriali
 import { BoilerplateGenerator } from "../../../src/code-generation/csharp/BoilerplateGenerator";
 import { CSharpSourceFileFixture } from "./CSharpSourceFile.fixture";
 import { DeserializerGenerator } from "../../../src/code-generation/csharp/DeserializerGenerator";
+import { TypeSchemaFixture } from "../../contract/model/TypeSchema.fixture";
 
-it("Should return an array of source files, when compile is called with contract", () => {
+it("Should return an array of source files, when compile is called with contract without schemas", () => {
   let generator = setUp();
 
-  let sourceFiles = generator.generate(ContractFixture.buildOk());
+  let sourceFiles = generator.generate(ContractFixture.buildPlainContract());
 
   expect(sourceFiles.sort()).toEqual(
     CSharpSourceFileFixture.buildListOk().sort()
+  );
+});
+
+it("Should return an array of source files, when compile is called with contract without schemas", () => {
+  let generator = setUp();
+
+  let sourceFiles = generator.generate(
+    ContractFixture.buildContractWithCustomTypes()
+  );
+
+  expect(sourceFiles.sort()).toEqual(
+    CSharpSourceFileFixture.buildListWithCustomTypes().sort()
   );
 });
 
@@ -47,6 +60,17 @@ function setupModelMocks(modelGeneratorMock: ModelGenerator) {
       deepEqual(PacketFixture.buildPacketWithStringsOnly())
     )
   ).thenReturn(CSharpSourceFileFixture.buildPacket2Model());
+
+  when(
+    modelGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildStringsObjectSchema())
+    )
+  ).thenReturn(CSharpSourceFileFixture.buildStringsCustomTypeModel());
+  when(
+    modelGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildNumbersObjectSchema())
+    )
+  ).thenReturn(CSharpSourceFileFixture.buildNumbersCustomTypeModel());
 }
 
 function setupSerializerMocks(serializerGeneratorMock: SerializerGenerator) {
@@ -60,6 +84,17 @@ function setupSerializerMocks(serializerGeneratorMock: SerializerGenerator) {
       deepEqual(PacketFixture.buildPacketWithStringsOnly())
     )
   ).thenReturn(CSharpSourceFileFixture.buildPacket2Serializer());
+
+  when(
+    serializerGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildStringsObjectSchema())
+    )
+  ).thenReturn(CSharpSourceFileFixture.buildStringsCustomTypeSerializer());
+  when(
+    serializerGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildNumbersObjectSchema())
+    )
+  ).thenReturn(CSharpSourceFileFixture.buildNumbersCustomTypeSerializer());
 }
 
 function setupDeserializerMocks(
@@ -75,6 +110,17 @@ function setupDeserializerMocks(
       deepEqual(PacketFixture.buildPacketWithStringsOnly())
     )
   ).thenReturn(CSharpSourceFileFixture.buildPacket2Deserializer());
+
+  when(
+    deserializerGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildStringsObjectSchema())
+    )
+  ).thenReturn(CSharpSourceFileFixture.buildStringsCustomTypeDeserializer());
+  when(
+    deserializerGeneratorMock.generate(
+      deepEqual(TypeSchemaFixture.buildNumbersObjectSchema())
+    )
+  ).thenReturn(CSharpSourceFileFixture.buildNumbersCustomTypeDeserializer());
 }
 
 function setupBoilerplateMocks(boilerplateGeneratorMock: BoilerplateGenerator) {

@@ -3,29 +3,41 @@ using System.IO;
 using System.Text;
 
 public class {{modelType}}PacketDeserializer : IPacketDeserializer<{{modelType}}> {
-    public {{modelType}} Deserialize(byte[] buffer) {
-        var message = new {{modelType}}();
+{{#if hasCustomTypes}}
 
-        using (var m = new MemoryStream(buffer)) {
-            using (var r = new BinaryReader(m)) {
-        {{#each fields as |field|}}
-            {{#if field.isNumeric}}
-                {{> deserializer-numeric field}}
-            {{/if}}
-            {{#if field.isVarchar}}
-                {{> deserializer-varchar field}}
-            {{/if}}
-            {{#if field.isChar}}
-                {{> deserializer-char field}}
-            {{/if}}
-            {{#if field.isSingleByte}}
-                {{> deserializer-single-byte field}}
-            {{/if}}
+{{#each schemas as |schema|}}
+    private readonly IPacketDeserializer<{{schema.pascalCaseName}}Dto> _{{schema.camelCaseName}}DtoDeserializer;
+{{/each}}
 
-        {{/each}}
-            }
-        }
+    public {{modelType}}PacketDeserializer() {
+    {{#each schemas as |schema|}}
+        _{{schema.camelCaseName}}DtoDeserializer = new {{schema.pascalCaseName}}DtoPacketDeserializer();
+    {{/each}}
+    }
+{{/if}}
 
-        return message;
+    public {{modelType}} Deserialize(BinaryReader reader) {
+        var model = new {{modelType}}();
+
+{{#each fields as |field|}}
+    {{#if field.isNumeric}}
+        {{> deserializer-numeric field}}
+    {{/if}}
+    {{#if field.isVarchar}}
+        {{> deserializer-varchar field}}
+    {{/if}}
+    {{#if field.isChar}}
+        {{> deserializer-char field}}
+    {{/if}}
+    {{#if field.isSingleByte}}
+        {{> deserializer-single-byte field}}
+    {{/if}}
+    {{#if field.isObject}}
+        {{> deserializer-object field}}
+    {{/if}}
+
+{{/each}}
+
+        return model;
     }
 }

@@ -1,9 +1,10 @@
 package packets
 
-const {{ className }}Header = uint16({{header}})
+{{#if isPacket}}const {{ className }}Header = uint16({{header}})
 
-type {{ className }} struct {
+{{/if}}
+type {{ className }}{{#unless isPacket}}Dto{{/unless}} struct {
 {{#each fields as |field|}}
-    {{field.name}} {{field.type}}
+    {{field.name}} {{#if isObject}}*{{/if}}{{field.type}}
 {{/each}}
 }

@@ -1,6 +1,7 @@
 export interface ModelClass {
+  isPacket: boolean;
   className: string;
-  header: number;
+  header?: number;
   fields: {
     type: string;
     name: string;
