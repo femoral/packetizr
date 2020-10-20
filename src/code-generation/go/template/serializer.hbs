@@ -38,6 +38,9 @@ func (r *{{model.pascalCaseName}}Serializer) Serialize({{model.camelCaseName}} *
 {{~#if field.isObject}}
     {{> serializer-object field=field model=../model}}
 {{/if}}
+{{~#if field.isArray}}
+    {{> serializer-array field=field model=../model}}
+{{/if}}
 
 {{/each}}
 }

@@ -5,6 +5,7 @@ export interface ModelClass {
   fields: {
     type: string;
     name: string;
-    isObject: boolean;
+    isPointer: boolean;
+    isArray: boolean;
   }[];
 }

@@ -9,7 +9,11 @@ export interface DeserializerClass {
     isChar: boolean;
     isVarchar: boolean;
     isObject: boolean;
-    schema?: string;
+    isArray: boolean;
+    schema?: {
+      camelCaseName: string;
+      pascalCaseName: string;
+    };
   }[];
   schemas: { pascalCaseName: string; camelCaseName: string }[];
 }

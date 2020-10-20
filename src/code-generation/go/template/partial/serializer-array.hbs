@@ -1,0 +1,4 @@
+_ = binary.Write(buffer, binary.LittleEndian, uint8(len({{model.camelCaseName}}.{{pascalCaseName}})))
+for element := range {{model.camelCaseName}}.{{pascalCaseName}} {
+    r.{{schema}}DtoSerializer.Serialize(element, buffer)
+}

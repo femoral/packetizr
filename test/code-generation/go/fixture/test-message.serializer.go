@@ -7,11 +7,13 @@ import (
 
 type TestMessageSerializer struct {
     customTypeDtoSerializer *CustomTypeDtoSerializer
+    stringsObjectDtoSerializer *StringsObjectDtoSerializer
 }
 
 func NewTestMessageSerializer() *TestMessageSerializer {
     return &TestMessageSerializer{
         NewCustomTypeDtoSerializer(),
+        NewStringsObjectDtoSerializer(),
     }
 }
 
@@ -29,4 +31,8 @@ func (r *TestMessageSerializer) Serialize(testMessage *TestMessage, buffer *byte
     _ = binary.Write(buffer, binary.LittleEndian, testMessage.Uint16Field)
     _ = binary.Write(buffer, binary.LittleEndian, testMessage.Uint8Field)
     r.customTypeDtoSerializer.Serialize(testMessage.CustomTypeField, buffer)
+    _ = binary.Write(buffer, binary.LittleEndian, uint8(len(testMessage.ArrayField)))
+    for element := range testMessage.ArrayField {
+        r.stringsObjectDtoSerializer.Serialize(element, buffer)
+    }
 }

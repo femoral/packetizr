@@ -23,7 +23,9 @@ export class ModelGenerator {
         fields: model.fields.map((field) => ({
           type: this.getType(field),
           name: pascalCase(field.name),
-          isObject: field.type === FieldTypes.OBJECT,
+          isPointer:
+            field.type === FieldTypes.OBJECT || field.type === FieldTypes.ARRAY,
+          isArray: field.type === FieldTypes.ARRAY,
         })),
       }),
     };
@@ -49,7 +51,7 @@ export class ModelGenerator {
         return "string";
       case FieldTypes.FLOAT32:
         return "float32";
-      case FieldTypes.OBJECT:
+      default:
         return `${pascalCase(field.schema)}Dto`;
     }
   }

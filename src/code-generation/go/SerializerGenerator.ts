@@ -12,7 +12,10 @@ export class SerializerGenerator {
   generate(model: Packet | TypeSchema): SourceFile {
     const isPacket = model instanceof Packet;
     const schemas = model.fields
-      .filter((field) => field.type === FieldTypes.OBJECT)
+      .filter(
+        (field) =>
+          field.type === FieldTypes.OBJECT || field.type === FieldTypes.ARRAY
+      )
       .map((field) => ({
         pascalCaseName: pascalCase(field.schema),
         camelCaseName: camelCase(field.schema),
@@ -38,8 +41,10 @@ export class SerializerGenerator {
           isNumeric:
             field.type != FieldTypes.CHAR &&
             field.type != FieldTypes.VARCHAR &&
-            field.type != FieldTypes.OBJECT,
+            field.type != FieldTypes.OBJECT &&
+            field.type != FieldTypes.ARRAY,
           isObject: field.type === FieldTypes.OBJECT,
+          isArray: field.type === FieldTypes.ARRAY,
           schema: camelCase(field.schema),
         })),
         schemas,

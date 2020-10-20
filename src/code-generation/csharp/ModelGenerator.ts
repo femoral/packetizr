@@ -45,7 +45,7 @@ export class ModelGenerator {
         return "string";
       case FieldTypes.FLOAT32:
         return "float";
-      case FieldTypes.OBJECT:
+      default:
         return `${pascalCase(field.schema)}Dto`;
     }
   }

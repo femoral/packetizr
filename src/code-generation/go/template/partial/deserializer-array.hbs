@@ -1,0 +1,6 @@
+var {{camelCaseName}}Length uint8
+_ = binary.Read(buffer, binary.LittleEndian, &{{camelCaseName}}Length)
+model.{{pascalCaseName}} = make([]*{{schema.pascalCaseName}}Dto, {{camelCaseName}}Length)
+for i := uint8(0); i < {{camelCaseName}}Length; i++ {
+    model.{{pascalCaseName}}[i] = r.{{schema.camelCaseName}}DtoDeserializer.Deserialize(buffer)
+}

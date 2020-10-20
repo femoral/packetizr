@@ -13,6 +13,7 @@ export class FieldFixture {
       new Field("Uint16Field", FieldTypes.UINT16),
       new Field("Uint8Field", FieldTypes.UINT8),
       new Field("CustomTypeField", FieldTypes.OBJECT, 0, "CustomType"),
+      new Field("ArrayField", FieldTypes.ARRAY, 0, "StringsObject"),
     ];
   }
 
@@ -28,6 +29,7 @@ export class FieldFixture {
       new Field("uint16Field", FieldTypes.UINT16),
       new Field("uint8Field", FieldTypes.UINT8),
       new Field("customTypeField", FieldTypes.OBJECT, 0, "customType"),
+      new Field("arrayField", FieldTypes.ARRAY, 0, "StringsObject"),
     ];
   }
 

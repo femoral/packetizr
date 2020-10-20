@@ -30,13 +30,22 @@ export class DeserializerGenerator {
             isNumeric:
               field.type != FieldTypes.CHAR &&
               field.type != FieldTypes.VARCHAR &&
-              field.type != FieldTypes.OBJECT,
+              field.type != FieldTypes.OBJECT &&
+              field.type != FieldTypes.ARRAY,
             length: field.length,
             isObject: field.type === FieldTypes.OBJECT,
-            schema: camelCase(field.schema),
+            isArray: field.type === FieldTypes.ARRAY,
+            schema: {
+              camelCaseName: camelCase(field.schema),
+              pascalCaseName: pascalCase(field.schema),
+            },
           })),
           schemas: model.fields
-            .filter((field) => field.type === FieldTypes.OBJECT)
+            .filter(
+              (field) =>
+                field.type === FieldTypes.OBJECT ||
+                field.type === FieldTypes.ARRAY
+            )
             .map((field) => ({
               pascalCaseName: pascalCase(field.schema),
               camelCaseName: camelCase(field.schema),

@@ -12,6 +12,7 @@ export interface SerializerClass {
     isChar: boolean;
     isVarchar: boolean;
     isObject: boolean;
+    isArray: boolean;
     schema?: string;
   }[];
   schemas: { pascalCaseName: string; camelCaseName: string }[];
