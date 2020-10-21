@@ -42,6 +42,30 @@ func (r *TestMessageDeserializer) Deserialize(buffer *bytes.Buffer) *TestMessage
     for i := uint8(0); i < arrayFieldLength; i++ {
         model.ArrayField[i] = r.stringsObjectDtoDeserializer.Deserialize(buffer)
     }
+    var primitiveNumericArrayFieldLength uint8
+    _ = binary.Read(buffer, binary.LittleEndian, &primitiveNumericArrayFieldLength)
+    model.PrimitiveNumericArrayField = make([]int32, primitiveNumericArrayFieldLength)
+    for i := uint8(0); i < primitiveNumericArrayFieldLength; i++ {
+        _ = binary.Read(buffer, binary.LittleEndian, &model.PrimitiveNumericArrayField[i])
+    }
+    var primitiveCharArrayFieldLength uint8
+    _ = binary.Read(buffer, binary.LittleEndian, &primitiveCharArrayFieldLength)
+    model.PrimitiveCharArrayField = make([]string, primitiveCharArrayFieldLength)
+    for i := uint8(0); i < primitiveCharArrayFieldLength; i++ {
+        elementBytes := make([]byte, 9)
+        _ = binary.Read(buffer, binary.BigEndian, &elementBytes)
+        model.PrimitiveCharArrayField[i] = string(elementBytes)
+    }
+    var primitiveVarcharArrayFieldLength uint8
+    _ = binary.Read(buffer, binary.LittleEndian, &primitiveVarcharArrayFieldLength)
+    model.PrimitiveVarcharArrayField = make([]string, primitiveVarcharArrayFieldLength)
+    for i := uint8(0); i < primitiveVarcharArrayFieldLength; i++ {
+        var elementLength uint8
+        _ = binary.Read(buffer, binary.LittleEndian, &elementLength)
+        elementBytes := make([]byte, elementLength)
+        _ = binary.Read(buffer, binary.BigEndian, &elementBytes)
+        model.PrimitiveVarcharArrayField[i] = string(elementBytes)
+    }
 
     return model
 }

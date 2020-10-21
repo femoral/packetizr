@@ -14,6 +14,13 @@ export interface DeserializerClass {
       camelCaseName: string;
       pascalCaseName: string;
     };
+    items?: {
+      isNumeric: boolean;
+      isChar: boolean;
+      isVarchar: boolean;
+      isPrimitive: boolean;
+      type: string;
+    };
   }[];
   schemas: { pascalCaseName: string; camelCaseName: string }[];
 }

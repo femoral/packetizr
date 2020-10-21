@@ -4,7 +4,9 @@ packets:
     fields:
       arrayField:
         type: array
-        schema: MissingSchema
+        items:
+          type: object
+          schema: MissingSchema
 components:
   schemas:
     StringsObject:

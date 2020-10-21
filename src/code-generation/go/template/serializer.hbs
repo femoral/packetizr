@@ -27,19 +27,19 @@ func (r *{{model.pascalCaseName}}Serializer) Serialize({{model.camelCaseName}} *
 {{/if}}
 {{#each fields as | field |~}}
 {{~#if field.isNumeric}}
-    {{> serializer-numeric field=field model=../model}}
+    {{> serializer-numeric field model=../model}}
 {{/if}}
 {{~#if field.isVarchar}}
-    {{> serializer-varchar field=field model=../model}}
+    {{> serializer-varchar field model=../model}}
 {{/if}}
 {{~#if field.isChar}}
-    {{> serializer-char field=field model=../model}}
+    {{> serializer-char field model=../model}}
 {{/if}}
 {{~#if field.isObject}}
-    {{> serializer-object field=field model=../model}}
+    {{> serializer-object field model=../model}}
 {{/if}}
 {{~#if field.isArray}}
-    {{> serializer-array field=field model=../model}}
+    {{> serializer-array field model=../model}}
 {{/if}}
 
 {{/each}}

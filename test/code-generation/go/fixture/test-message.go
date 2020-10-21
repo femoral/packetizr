@@ -14,4 +14,7 @@ type TestMessage struct {
     Uint8Field uint8
     CustomTypeField *CustomTypeDto
     ArrayField []*StringsObjectDto
+    PrimitiveNumericArrayField []int32
+    PrimitiveCharArrayField []string
+    PrimitiveVarcharArrayField []string
 }

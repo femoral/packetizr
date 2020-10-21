@@ -57,4 +57,12 @@ export class PacketFixture {
       FieldFixture.buildListWithArrayField()
     );
   }
+
+  static buildContractWithPrimitiveArrayField() {
+    return new Packet(
+      "ArrayOfPrimitivesMessage",
+      1,
+      FieldFixture.buildContractWithPrimitiveArrayField()
+    );
+  }
 }

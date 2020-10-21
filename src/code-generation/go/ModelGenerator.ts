@@ -20,19 +20,24 @@ export class ModelGenerator {
         isPacket,
         className: pascalCase(model.name),
         header: !(model instanceof TypeSchema) ? model.header : undefined,
-        fields: model.fields.map((field) => ({
-          type: this.getType(field),
-          name: pascalCase(field.name),
-          isPointer:
-            field.type === FieldTypes.OBJECT || field.type === FieldTypes.ARRAY,
-          isArray: field.type === FieldTypes.ARRAY,
-        })),
+        fields: model.fields.map((field) => this.getField(field)),
       }),
     };
   }
 
-  private getType(field: Field) {
-    switch (field.type) {
+  private getField(field: Field) {
+    return {
+      type: this.getDeclaredType(field.schema),
+      name: pascalCase(field.name),
+      isPointer:
+        field.type === FieldTypes.OBJECT ||
+        (field.type === FieldTypes.ARRAY && !field.isPrimitive),
+      isArray: field.type === FieldTypes.ARRAY,
+    };
+  }
+
+  private getDeclaredType(type: string) {
+    switch (type) {
       case FieldTypes.UINT32:
         return "uint32";
       case FieldTypes.UINT16:
@@ -52,7 +57,7 @@ export class ModelGenerator {
       case FieldTypes.FLOAT32:
         return "float32";
       default:
-        return `${pascalCase(field.schema)}Dto`;
+        return `${pascalCase(type)}Dto`;
     }
   }
 }

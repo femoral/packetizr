@@ -38,7 +38,7 @@ func (r *{{modelType}}Deserializer) Deserialize(buffer *bytes.Buffer) *{{modelTy
     {{> deserializer-object field}}
 {{/if}}
 {{~#if field.isArray}}
-    {{> deserializer-array field=field model=../model}}
+    {{> deserializer-array field model=../model}}
 {{/if}}
 
 {{/each}}

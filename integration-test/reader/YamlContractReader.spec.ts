@@ -71,7 +71,7 @@ describe("read is called", () => {
       });
     });
 
-    describe("array field is defined", () => {
+    describe("array field is defined with custom type schema", () => {
       it("should resolve contract with array field", async () => {
         let yamlReader = new YamlContractReader(
           "./integration-test/reader/fixture/contract-with-array.yml"
@@ -91,6 +91,20 @@ describe("read is called", () => {
           .read()
           .then(() => fail("should reject"))
           .catch(() => done());
+      });
+    });
+
+    describe("array field is defined with primitive type", () => {
+      it("should resolve contract with array field", async () => {
+        let yamlReader = new YamlContractReader(
+          "./integration-test/reader/fixture/contract-with-array-of-primitives.yml"
+        );
+
+        let object = await yamlReader.read();
+
+        expect(object).toEqual(
+          ContractFixture.buildContractWithPrimitiveArrayField()
+        );
       });
     });
   });

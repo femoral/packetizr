@@ -4,7 +4,9 @@ packets:
     fields:
       arrayField:
         type: array
-        schema: StringsObject
+        items:
+          type: object
+          schema: StringsObject
 components:
   schemas:
     StringsObject:
