@@ -49,4 +49,8 @@ func (r *TestMessageSerializer) Serialize(testMessage *TestMessage, buffer *byte
         _ = binary.Write(buffer, binary.LittleEndian, uint8(len(elementBytes)))
         buffer.Write(elementBytes)
     }
+    _ = binary.Write(buffer, binary.LittleEndian, uint8(len(testMessage.PrimitiveSingleByteArrayField)))
+    for _, element := range testMessage.PrimitiveSingleByteArrayField {
+        _ = binary.Write(buffer, binary.LittleEndian, element)
+    }
 }

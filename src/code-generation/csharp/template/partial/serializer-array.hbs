@@ -1,0 +1,16 @@
+foreach(var element in {{model.camelCaseName}}.{{name}}) {
+{{#if items.isPrimitive}}
+{{#if items.isNumeric}}
+    {{> serializer-numeric this model=model}}
+{{/if}}
+{{#if items.isVarchar}}
+    {{> serializer-varchar this model=model}}
+{{/if}}
+{{#if items.isChar}}
+    {{> serializer-char this model=model}}
+{{/if}}
+
+{{else}}
+    _{{schema}}DtoSerializer.Serialize(element, writer);
+{{/if}}
+}

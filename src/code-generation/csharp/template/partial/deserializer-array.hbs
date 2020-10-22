@@ -1,0 +1,21 @@
+model.{{name.pascalCaseName}} = new List<{{items.type}}>();
+var {{name.camelCaseName}}Length = (uint) reader.ReadByte();
+for(var i = 0; i < {{name.camelCaseName}}Length; i++) {
+{{#if items.isPrimitive}}
+{{#if items.isNumeric}}
+    {{> deserializer-numeric this model=model}}
+{{/if}}
+{{#if items.isVarchar}}
+    {{> deserializer-varchar this model=model}}
+{{/if}}
+{{#if items.isChar}}
+    {{> deserializer-char this model=model}}
+{{/if}}
+{{#if items.isSingleByte}}
+    {{> deserializer-single-byte this model=model}}
+{{/if}}
+
+{{else}}
+    model.{{name.pascalCaseName}}.Add(_{{schema}}DtoDeserializer.Deserialize(reader));
+{{/if}}
+}

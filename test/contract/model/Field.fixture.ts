@@ -32,6 +32,12 @@ export class FieldFixture {
         0,
         FieldTypes.VARCHAR
       ),
+      new Field(
+        "PrimitiveSingleByteArrayField",
+        FieldTypes.ARRAY,
+        0,
+        FieldTypes.INT8
+      ),
     ];
   }
 
@@ -65,6 +71,12 @@ export class FieldFixture {
         FieldTypes.ARRAY,
         0,
         FieldTypes.VARCHAR
+      ),
+      new Field(
+        "primitiveSingleByteArrayField",
+        FieldTypes.ARRAY,
+        0,
+        FieldTypes.INT8
       ),
     ];
   }

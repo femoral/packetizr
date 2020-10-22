@@ -17,4 +17,5 @@ type TestMessage struct {
     PrimitiveNumericArrayField []int32
     PrimitiveCharArrayField []string
     PrimitiveVarcharArrayField []string
+    PrimitiveSingleByteArrayField []int8
 }

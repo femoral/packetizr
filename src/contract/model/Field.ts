@@ -19,9 +19,7 @@ export class Field {
     private readonly _length = 0,
     private readonly _schema?: string,
     private readonly _items?: Field
-  ) {
-    this._length = this._getFieldLength(this._type);
-  }
+  ) {}
 
   get name(): string {
     return this._name;
@@ -32,7 +30,7 @@ export class Field {
   }
 
   get length(): number {
-    return this._length;
+    return this._getFieldLength(this.schema);
   }
 
   get schema(): string {
@@ -43,7 +41,7 @@ export class Field {
     return Field.Primitives.some((primitive) => primitive === this.schema);
   }
 
-  private _getFieldLength(type: FieldTypes): number {
+  private _getFieldLength(type: string): number {
     switch (type) {
       case FieldTypes.FLOAT32:
         return 4;
