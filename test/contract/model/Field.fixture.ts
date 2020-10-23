@@ -13,6 +13,31 @@ export class FieldFixture {
       new Field("Uint16Field", FieldTypes.UINT16),
       new Field("Uint8Field", FieldTypes.UINT8),
       new Field("CustomTypeField", FieldTypes.OBJECT, 0, "CustomType"),
+      new Field("ArrayField", FieldTypes.ARRAY, 0, "StringsObject"),
+      new Field(
+        "PrimitiveNumericArrayField",
+        FieldTypes.ARRAY,
+        0,
+        FieldTypes.INT32
+      ),
+      new Field(
+        "PrimitiveCharArrayField",
+        FieldTypes.ARRAY,
+        9,
+        FieldTypes.CHAR
+      ),
+      new Field(
+        "PrimitiveVarcharArrayField",
+        FieldTypes.ARRAY,
+        0,
+        FieldTypes.VARCHAR
+      ),
+      new Field(
+        "PrimitiveSingleByteArrayField",
+        FieldTypes.ARRAY,
+        0,
+        FieldTypes.INT8
+      ),
     ];
   }
 
@@ -28,6 +53,31 @@ export class FieldFixture {
       new Field("uint16Field", FieldTypes.UINT16),
       new Field("uint8Field", FieldTypes.UINT8),
       new Field("customTypeField", FieldTypes.OBJECT, 0, "customType"),
+      new Field("arrayField", FieldTypes.ARRAY, 0, "StringsObject"),
+      new Field(
+        "primitiveNumericArrayField",
+        FieldTypes.ARRAY,
+        0,
+        FieldTypes.INT32
+      ),
+      new Field(
+        "primitiveCharArrayField",
+        FieldTypes.ARRAY,
+        9,
+        FieldTypes.CHAR
+      ),
+      new Field(
+        "primitiveVarcharArrayField",
+        FieldTypes.ARRAY,
+        0,
+        FieldTypes.VARCHAR
+      ),
+      new Field(
+        "primitiveSingleByteArrayField",
+        FieldTypes.ARRAY,
+        0,
+        FieldTypes.INT8
+      ),
     ];
   }
 
@@ -73,5 +123,13 @@ export class FieldFixture {
 
   static buildListWithChildObject() {
     return [new Field("childField", FieldTypes.OBJECT, 0, "ChildObject")];
+  }
+
+  static buildListWithArrayField() {
+    return [new Field("arrayField", FieldTypes.ARRAY, 0, "StringsObject")];
+  }
+
+  static buildContractWithPrimitiveArrayField() {
+    return [new Field("arrayField", FieldTypes.ARRAY, 0, FieldTypes.INT32)];
   }
 }

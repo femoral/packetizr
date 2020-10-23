@@ -5,6 +5,6 @@ package packets
 {{/if}}
 type {{ className }}{{#unless isPacket}}Dto{{/unless}} struct {
 {{#each fields as |field|}}
-    {{field.name}} {{#if isObject}}*{{/if}}{{field.type}}
+    {{field.name}} {{#if isArray}}[]{{/if}}{{#if isPointer}}*{{/if}}{{field.type}}
 {{/each}}
 }

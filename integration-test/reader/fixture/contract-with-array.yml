@@ -1,0 +1,17 @@
+packets:
+  - header: 1
+    name: ArrayMessage
+    fields:
+      arrayField:
+        type: array
+        items:
+          type: object
+          schema: StringsObject
+components:
+  schemas:
+    StringsObject:
+      varcharField:
+        type: varchar
+      charField:
+        type: char
+        length: 10

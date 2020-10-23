@@ -1,3 +1,9 @@
+{{~#if isArray~}}
+elementBytes := make([]byte, {{length}})
+_ = binary.Read(buffer, binary.BigEndian, &elementBytes)
+model.{{pascalCaseName}}[i] = string(elementBytes)
+{{~else~}}
 {{camelCaseName}}Bytes := make([]byte, {{length}})
 _ = binary.Read(buffer, binary.BigEndian, &{{camelCaseName}}Bytes)
 model.{{pascalCaseName}} = string({{camelCaseName}}Bytes)
+{{~/if~}}

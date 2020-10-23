@@ -1,8 +1,14 @@
+using System.Collections.Generic;
+
 public class {{ className }}{{#unless isPacket}}Dto{{/unless}} {
 {{#if isPacket}}    public const ushort Header = {{header}};
 
 {{/if}}
 {{#each fields as |field|}}
+{{#if isArray}}
+    public List<{{field.type}}> {{field.name}} {get; set;}
+{{else}}
     public {{field.type}} {{field.name}} {get; set;}
+{{/if}}
 {{/each}}
 }

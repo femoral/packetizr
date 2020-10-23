@@ -28,18 +28,15 @@ export class YamlContractReader implements ContractReader {
       (schemaKey) =>
         new TypeSchema(
           schemaKey,
-          Object.keys(rawSchemas[schemaKey]).map(
-            (fieldName: any) =>
-              new Field(
-                fieldName,
-                rawSchemas[schemaKey][fieldName].type,
-                rawSchemas[schemaKey][fieldName].length,
-                this.validateSchema(
-                  rawSchemas[schemaKey][fieldName].schema,
-                  schemaKeys
-                )
-              )
-          )
+          Object.keys(rawSchemas[schemaKey]).map((fieldName: any) => {
+            let rawField = rawSchemas[schemaKey][fieldName];
+            return new Field(
+              fieldName,
+              rawField.type,
+              rawField.length,
+              this.getSchema(rawField, schemaKeys)
+            );
+          })
         )
     );
   }
@@ -50,24 +47,32 @@ export class YamlContractReader implements ContractReader {
         new Packet(
           rawPacket.name,
           rawPacket.header,
-          Object.keys(rawPacket.fields).map(
-            (fieldName: any) =>
-              new Field(
-                fieldName,
-                rawPacket.fields[fieldName].type,
-                rawPacket.fields[fieldName].length,
-                this.validateSchema(rawPacket.fields[fieldName].schema, schemas)
-              )
-          )
+          Object.keys(rawPacket.fields).map((fieldName: any) => {
+            let rawField = rawPacket.fields[fieldName];
+            return new Field(
+              fieldName,
+              rawField.type,
+              rawField.length,
+              this.getSchema(rawField, schemas)
+            );
+          })
         )
     );
   }
 
-  private validateSchema(schemaName: string, schemas: string[]) {
-    if (!schemaName) return;
-    const foundSchema = schemas.find((schema) => schema === schemaName);
-    if (!foundSchema) throw new Error(`Schema not found: ${schemaName}`);
-    return foundSchema;
+  private getSchema(rawField: any, schemas: string[]): string | undefined {
+    if (rawField.type === FieldTypes.OBJECT) {
+      const foundSchema = schemas.find((schema) => schema === rawField.schema);
+      if (!foundSchema) throw new Error(`Schema not found: ${rawField.schema}`);
+      return foundSchema;
+    } else if (
+      rawField.type === FieldTypes.ARRAY &&
+      rawField.items.type === FieldTypes.OBJECT
+    ) {
+      return this.getSchema(rawField.items, schemas);
+    } else if (rawField.type === FieldTypes.ARRAY) {
+      return rawField.items.type;
+    }
   }
 
   private validateCircularReferences(schemas: TypeSchema[]) {

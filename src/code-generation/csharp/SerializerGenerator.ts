@@ -2,7 +2,7 @@ import { Packet } from "../../contract/model/Packet";
 import { SourceFile } from "../SourceFile";
 import { TemplateContainer } from "./TemplateContainer";
 import { SerializerClass } from "./model/SerializerClass";
-import { FieldTypes } from "../../contract/model/Field";
+import { Field, FieldTypes } from "../../contract/model/Field";
 import { camelCase, pascalCase } from "change-case";
 import { TypeSchema } from "../../contract/model/TypeSchema";
 
@@ -11,7 +11,7 @@ export class SerializerGenerator {
 
   generate(model: Packet | TypeSchema): SourceFile {
     const schemas = model.fields
-      .filter((field) => field.type === FieldTypes.OBJECT)
+      .filter((field) => !field.isPrimitive)
       .map((field) => ({
         pascalCaseName: pascalCase(field.schema),
         camelCaseName: camelCase(field.schema),
@@ -30,18 +30,31 @@ export class SerializerGenerator {
           pascalCaseName: `${pascalCase(model.name)}${isPacket ? "" : "Dto"}`,
           camelCaseName: `${camelCase(model.name)}${isPacket ? "" : "Dto"}`,
         },
-        fields: model.fields.map((field) => ({
-          name: pascalCase(field.name),
-          isChar: field.type == FieldTypes.CHAR,
-          isVarchar: field.type == FieldTypes.VARCHAR,
-          isNumeric:
-            field.type != FieldTypes.CHAR &&
-            field.type != FieldTypes.VARCHAR &&
-            field.type != FieldTypes.OBJECT,
-          isObject: field.type == FieldTypes.OBJECT,
-          schema: camelCase(field.schema),
-        })),
+        fields: model.fields.map((field) => this.getField(field)),
       }),
+    };
+  }
+
+  private getField(field: Field) {
+    return {
+      name: pascalCase(field.name),
+      isChar: field.type == FieldTypes.CHAR,
+      isVarchar: field.type == FieldTypes.VARCHAR,
+      isNumeric:
+        field.type != FieldTypes.CHAR &&
+        field.type != FieldTypes.VARCHAR &&
+        field.type != FieldTypes.OBJECT &&
+        field.type != FieldTypes.ARRAY,
+      isObject: field.type == FieldTypes.OBJECT,
+      isArray: field.type === FieldTypes.ARRAY,
+      schema: camelCase(field.schema),
+      items: {
+        isPrimitive: field.isPrimitive,
+        isChar: field.schema == FieldTypes.CHAR,
+        isVarchar: field.schema == FieldTypes.VARCHAR,
+        isNumeric:
+          field.schema != FieldTypes.CHAR && field.schema != FieldTypes.VARCHAR,
+      },
     };
   }
 }

@@ -1,5 +1,5 @@
 import { Packet } from "../../contract/model/Packet";
-import { Field, FieldTypes } from "../../contract/model/Field";
+import { FieldTypes } from "../../contract/model/Field";
 import { SourceFile } from "../SourceFile";
 import { TemplateContainer } from "./TemplateContainer";
 import { pascalCase } from "change-case";
@@ -18,15 +18,16 @@ export class ModelGenerator {
         className: pascalCase(model.name),
         header: !(model instanceof TypeSchema) ? model.header : undefined,
         fields: model.fields.map((field) => ({
-          type: this.getType(field),
+          type: this.getTypeDefinition(field.schema),
           name: pascalCase(field.name),
+          isArray: field.type === FieldTypes.ARRAY,
         })),
       }),
     };
   }
 
-  private getType(field: Field): string {
-    switch (field.type) {
+  private getTypeDefinition(schema: string): string {
+    switch (schema) {
       case FieldTypes.UINT32:
         return "uint";
       case FieldTypes.UINT16:
@@ -45,8 +46,8 @@ export class ModelGenerator {
         return "string";
       case FieldTypes.FLOAT32:
         return "float";
-      case FieldTypes.OBJECT:
-        return `${pascalCase(field.schema)}Dto`;
+      default:
+        return `${pascalCase(schema)}Dto`;
     }
   }
 }

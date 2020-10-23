@@ -1,1 +1,6 @@
-buffer.WriteString({{model.camelCaseName}}.{{field.pascalCaseName}})
+buffer.WriteString(
+{{~#if isArray~}}
+    element
+{{~else~}}
+    {{model.camelCaseName}}.{{pascalCaseName}}
+{{~/if}})

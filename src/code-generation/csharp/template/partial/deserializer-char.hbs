@@ -1,1 +1,5 @@
-model.{{name}} = Encoding.ASCII.GetString(reader.ReadBytes({{length}}));
+{{~#if isArray~}}
+model.{{name.pascalCaseName}}.Add(Encoding.ASCII.GetString(reader.ReadBytes({{length}})));
+{{~else~}}
+model.{{name.pascalCaseName}} = Encoding.ASCII.GetString(reader.ReadBytes({{length}}));
+{{~/if~}}
