@@ -14,3 +14,6 @@
 
 - C# code generation for basic types
 - Contract definition for basic types: (u)int32-8, float32, char and varchar
+
+[0.0.2]:https://github.com/femoral/packetizr/compare/v0.0.1...v0.0.2
+[0.0.1]:https://github.com/femoral/packetizr/releases/tag/v0.0.1
