@@ -1,6 +1,12 @@
 # Changelog
 
-## [0.0.2] - 2020-10-05
+## [0.0.3] - 2020-10-23
+
+### Fixed
+
+- Minor fix to publish github action
+
+## [0.0.2] - 2020-10-23
 
 ### Added
 
@@ -15,5 +21,6 @@
 - C# code generation for basic types
 - Contract definition for basic types: (u)int32-8, float32, char and varchar
 
+[0.0.3]:https://github.com/femoral/packetizr/compare/v0.0.2...v0.0.3
 [0.0.2]:https://github.com/femoral/packetizr/compare/v0.0.1...v0.0.2
 [0.0.1]:https://github.com/femoral/packetizr/releases/tag/v0.0.1
