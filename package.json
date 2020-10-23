@@ -1,6 +1,6 @@
 {
   "name": "packetizr",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A code generation and packet inspection tool based on contracts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
