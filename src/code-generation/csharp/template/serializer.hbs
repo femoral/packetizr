@@ -33,6 +33,9 @@ public class {{modelType}}PacketSerializer : IPacketSerializer<{{modelType}}> {
     {{#if field.isObject}}
         {{> serializer-object field model=../model}}
     {{/if}}
+    {{#if field.isArray}}
+        {{> serializer-array field model=../model}}
+    {{/if}}
 
 {{/each}}
     }

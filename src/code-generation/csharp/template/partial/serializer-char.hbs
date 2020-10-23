@@ -1,1 +1,5 @@
+{{~#if isArray~}}
+writer.Write(Encoding.ASCII.GetBytes(element));
+{{~else~}}
 writer.Write(Encoding.ASCII.GetBytes({{model.camelCaseName}}.{{name}}));
+{{~/if~}}

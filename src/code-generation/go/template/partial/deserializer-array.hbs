@@ -1,0 +1,24 @@
+{{~#if items.isPrimitive~}}
+var {{camelCaseName}}Length uint8
+_ = binary.Read(buffer, binary.LittleEndian, &{{camelCaseName}}Length)
+model.{{pascalCaseName}} = make([]{{items.type}}, {{camelCaseName}}Length)
+for i := uint8(0); i < {{camelCaseName}}Length; i++ {
+{{#if items.isNumeric}}
+    {{> deserializer-numeric this model=model}}
+{{/if}}
+{{#if items.isVarchar}}
+    {{> deserializer-varchar this model=model}}
+{{/if}}
+{{#if items.isChar}}
+    {{> deserializer-char this model=model}}
+{{/if}}
+
+}
+{{~else~}}
+var {{camelCaseName}}Length uint8
+_ = binary.Read(buffer, binary.LittleEndian, &{{camelCaseName}}Length)
+model.{{pascalCaseName}} = make([]*{{schema.pascalCaseName}}Dto, {{camelCaseName}}Length)
+for i := uint8(0); i < {{camelCaseName}}Length; i++ {
+    model.{{pascalCaseName}}[i] = r.{{schema.camelCaseName}}DtoDeserializer.Deserialize(buffer)
+}
+{{~/if~}}

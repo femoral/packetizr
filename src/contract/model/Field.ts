@@ -1,12 +1,25 @@
+export enum FieldTypes {
+  FLOAT32 = "float32",
+  INT32 = "int32",
+  INT16 = "int16",
+  INT8 = "int8",
+  UINT32 = "uint32",
+  UINT16 = "uint16",
+  UINT8 = "uint8",
+  VARCHAR = "varchar",
+  CHAR = "char",
+  OBJECT = "object",
+  ARRAY = "array",
+}
+
 export class Field {
   constructor(
     private readonly _name: string,
     private readonly _type: FieldTypes,
     private readonly _length = 0,
-    private readonly _schema?: string
-  ) {
-    this._length = this._getFieldLength(this._type);
-  }
+    private readonly _schema?: string,
+    private readonly _items?: Field
+  ) {}
 
   get name(): string {
     return this._name;
@@ -17,14 +30,18 @@ export class Field {
   }
 
   get length(): number {
-    return this._length;
+    return this._getFieldLength(this.schema);
   }
 
   get schema(): string {
     return this._schema || this._type;
   }
 
-  private _getFieldLength(type: FieldTypes): number {
+  get isPrimitive(): boolean {
+    return Field.Primitives.some((primitive) => primitive === this.schema);
+  }
+
+  private _getFieldLength(type: string): number {
     switch (type) {
       case FieldTypes.FLOAT32:
         return 4;
@@ -46,17 +63,16 @@ export class Field {
         return this._length;
     }
   }
-}
 
-export enum FieldTypes {
-  FLOAT32 = "float32",
-  INT32 = "int32",
-  INT16 = "int16",
-  INT8 = "int8",
-  UINT32 = "uint32",
-  UINT16 = "uint16",
-  UINT8 = "uint8",
-  VARCHAR = "varchar",
-  CHAR = "char",
-  OBJECT = "object",
+  static Primitives = [
+    FieldTypes.FLOAT32,
+    FieldTypes.INT32,
+    FieldTypes.INT16,
+    FieldTypes.INT8,
+    FieldTypes.UINT32,
+    FieldTypes.UINT16,
+    FieldTypes.UINT8,
+    FieldTypes.VARCHAR,
+    FieldTypes.CHAR,
+  ];
 }

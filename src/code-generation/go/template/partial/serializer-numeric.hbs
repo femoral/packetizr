@@ -1,1 +1,5 @@
-_ = binary.Write(buffer, binary.LittleEndian, {{model.camelCaseName}}.{{field.pascalCaseName}})
+_ = binary.Write(buffer, binary.LittleEndian, {{#if isArray~}}
+    element
+{{~else~}}
+    {{model.camelCaseName}}.{{pascalCaseName}}
+{{~/if~}})

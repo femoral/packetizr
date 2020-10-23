@@ -5,5 +5,6 @@ export interface ModelClass {
   fields: {
     type: string;
     name: string;
+    isArray: boolean;
   }[];
 }

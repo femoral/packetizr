@@ -1,0 +1,8 @@
+packets:
+  - header: 1
+    name: ArrayOfPrimitivesMessage
+    fields:
+      arrayField:
+        type: array
+        items:
+          type: int32

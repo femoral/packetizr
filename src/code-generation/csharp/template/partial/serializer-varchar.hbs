@@ -1,3 +1,9 @@
+{{~#if isArray~}}
+var elementBytes = Encoding.ASCII.GetBytes(element);
+writer.Write((byte) elementBytes.Length);
+writer.Write(elementBytes);
+{{~else~}}
 var {{name}}Bytes = Encoding.ASCII.GetBytes({{model.camelCaseName}}.{{name}});
 writer.Write((byte) {{name}}Bytes.Length);
 writer.Write({{name}}Bytes);
+{{~/if~}}

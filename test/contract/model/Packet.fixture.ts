@@ -49,4 +49,20 @@ export class PacketFixture {
       FieldFixture.buildListWithParentObject()
     );
   }
+
+  static buildPacketWithArrayFieldOnly() {
+    return new Packet(
+      "ArrayMessage",
+      1,
+      FieldFixture.buildListWithArrayField()
+    );
+  }
+
+  static buildContractWithPrimitiveArrayField() {
+    return new Packet(
+      "ArrayOfPrimitivesMessage",
+      1,
+      FieldFixture.buildContractWithPrimitiveArrayField()
+    );
+  }
 }
