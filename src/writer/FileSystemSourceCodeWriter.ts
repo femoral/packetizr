@@ -1,6 +1,7 @@
 import { SourceFile } from "../code-generation/SourceFile";
 import { SourceCodeWriter } from "./SourceCodeWriter";
 import * as fs from "fs";
+import logger from "../common/Logger";
 
 export class FileSystemSourceCodeWriter implements SourceCodeWriter {
   constructor(private _outputDirectory: string) {}
@@ -17,5 +18,7 @@ export class FileSystemSourceCodeWriter implements SourceCodeWriter {
         )
       )
     );
+
+    logger.info(`generated ${files.length} files in: ${this._outputDirectory}`);
   }
 }

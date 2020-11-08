@@ -1,5 +1,0 @@
-{{~#if isArray~}}
-model.{{name.pascalCaseName}}.Add({{#if items.isSigned}}(sbyte) {{/if}}reader.ReadByte());
-{{~else~}}
-model.{{name.pascalCaseName}} = {{#if isSigned}}(sbyte) {{/if}}reader.ReadByte();
-{{~/if~}}

@@ -21,7 +21,12 @@ beforeEach(() => {
 
 describe("execute is called with GenerateArgs", () => {
   it("Should get contract", async () => {
-    await generate.execute({ file: "file", out: "out", language: "csharp" });
+    await generate.execute({
+      file: "file",
+      out: "out",
+      language: "csharp",
+      args: {},
+    });
 
     expect(getContractUseCaseMock.execute).toHaveBeenCalledTimes(1);
   });
@@ -34,7 +39,12 @@ describe("execute is called with GenerateArgs", () => {
     });
 
     it("Should generate code with contract", async () => {
-      await generate.execute({ file: "file", out: "out", language: "csharp" });
+      await generate.execute({
+        file: "file",
+        out: "out",
+        language: "csharp",
+        args: {},
+      });
 
       expect(generateContractCodeUseCaseMock.execute).toHaveBeenCalledWith(
         ContractFixture.buildPlainContract()
