@@ -1,9 +1,0 @@
-{{#if isArray~}}
-elementBytes := []byte(element)
-_ = binary.Write(buffer, binary.LittleEndian, uint8(len(elementBytes)))
-buffer.Write(elementBytes)
-{{~else~}}
-{{camelCaseName}}Bytes := []byte({{model.camelCaseName}}.{{pascalCaseName}})
-_ = binary.Write(buffer, binary.LittleEndian, uint8(len({{camelCaseName}}Bytes)))
-buffer.Write({{camelCaseName}}Bytes)
-{{~/if}}

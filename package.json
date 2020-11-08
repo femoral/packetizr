@@ -1,6 +1,6 @@
 {
   "name": "packetizr",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A code generation and packet inspection tool based on contracts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,12 +11,10 @@
     "dist/**/*"
   ],
   "scripts": {
-    "gen": "ts-node src/index.ts gen",
     "test": "jest",
     "check": "prettier --check src/**/*.ts",
     "coverage": "jest --coverage",
-    "build": "rimraf dist && tsc && npm run copy-assets",
-    "copy-assets": "copyfiles -u 1 ./src/**/*.hbs dist"
+    "build": "rimraf dist && tsc"
   },
   "repository": {
     "type": "git",
@@ -24,7 +22,8 @@
   },
   "keywords": [
     "packet",
-    "serialization"
+    "serialization",
+    "generation"
   ],
   "author": "Felipe Morales",
   "license": "MIT",
@@ -43,12 +42,11 @@
     "ts-jest": "^26.4.1",
     "ts-mockito": "^2.6.1",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.3",
-    "copyfiles": "^2.4.0"
+    "typescript": "^4.0.3"
   },
   "dependencies": {
-    "change-case": "^4.1.1",
-    "handlebars": "^4.7.6",
+    "pino": "^6.7.0",
+    "pino-pretty": "^4.3.0",
     "yaml": "^1.10.0",
     "yargs": "^16.0.3"
   }

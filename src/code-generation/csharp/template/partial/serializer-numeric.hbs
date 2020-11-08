@@ -1,5 +1,0 @@
-{{~#if isArray~}}
-writer.Write(BitConverter.GetBytes(element));
-{{~else~}}
-writer.Write(BitConverter.GetBytes({{model.camelCaseName}}.{{name}}));
-{{~/if~}}
